@@ -26,8 +26,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.TomorrowRogueNight;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,10 +99,7 @@ public class Messages {
 		return get(o.getClass(), k, args);
 	}
 
-	public static String get(Class c, String k, Object...args) {
-		return get(c, k, null, args);
-	}
-	public static String get(Class c, String k,String baseName, Object...args){
+	public static String get(Class c, String k, Object...args){
 		String key;
 		if (c != null){
 			key = c.getName().replace("com.shatteredpixel.shatteredpixeldungeon.", "");
@@ -117,18 +112,13 @@ public class Messages {
 			if (args.length > 0) return format(value, args);
 			else return value;
 		} else {
-			if (baseName==null){
-				baseName = key;
-			}
 			//this is so child classes can inherit properties from their parents.
 			//in cases where text is commonly grabbed as a utility from classes that aren't mean to be instantiated
 			//(e.g. flavourbuff.dispTurns()) using .class directly is probably smarter to prevent unnecessary recursive calls.
 			if (c != null && c.getSuperclass() != null){
-				return get(c.getSuperclass(), k,baseName, args);
+				return get(c.getSuperclass(), k, args);
 			} else {
-				String name = "Ms:"+baseName;
-				GLog.w(name);
-				return name;
+				return key;
 			}
 		}
 	}

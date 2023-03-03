@@ -263,6 +263,7 @@ public class Dungeon {
 			SpecialRoom.initForRun();
 			SecretRoom.initForRun();
 
+		Generator.fullReset();
 		Random.resetGenerators();
 		
 		Statistics.reset();
@@ -319,7 +320,6 @@ public class Dungeon {
 		Blacksmith.Quest.reset();
 		Imp.Quest.reset();
 
-		Generator.fullReset();
 		hero = new Hero();
 		hero.live();
 		

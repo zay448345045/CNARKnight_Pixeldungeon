@@ -308,7 +308,8 @@ public class Generator {
         //Artifacts in particular don't reset, no duplicates!
         public float[] probs;
         public float[] defaultProbs = null;
-
+        public Long seed = null;
+        public int dropped = 0;
         public float prob;
         public Class<? extends Item> superClass;
 
@@ -689,6 +690,10 @@ public class Generator {
         generalReset();
         for (Category cat : Category.values()) {
             reset(cat);
+            if (cat.defaultProbs != null) {
+                cat.seed = Random.Long();
+                cat.dropped = 0;
+            }
         }
     }
 
@@ -709,7 +714,14 @@ public class Generator {
             cat = Random.chances(categoryProbs);
         }
         categoryProbs.put(cat, categoryProbs.get(cat) - 1);
-        return random(cat);
+        if (cat == Category.SEED) {
+            //We specifically use defaults for seeds here because, unlike other item categories
+            // their predominant source of drops is grass, not levelgen. This way the majority
+            // of seed drops still use a deck, but the few that are spawned by levelgen are consistent
+            return randomUsingDefaults(cat);
+        } else {
+            return random(cat);
+        }
     }
 
     public static Item random(Category cat) {
@@ -725,12 +737,23 @@ public class Generator {
                 //if we're out of artifacts, return a ring instead.
                 return item != null ? item : random(Category.RING);
             default:
+                if (cat.defaultProbs != null && cat.seed != null){
+                    Random.pushGenerator(cat.seed);
+                    for (int i = 0; i < cat.dropped; i++) Random.Long();
+                }
+
                 int i = Random.chances(cat.probs);
                 if (i == -1) {
                     reset(cat);
                     i = Random.chances(cat.probs);
                 }
                 if (cat.defaultProbs != null) cat.probs[i]--;
+
+                if (cat.defaultProbs != null && cat.seed != null){
+                    Random.popGenerator();
+                    cat.dropped++;
+                }
+
                 return ((Item) Reflection.newInstance(cat.classes[i])).random();
         }
     }
@@ -834,6 +857,8 @@ public class Generator {
 
     private static final String GENERAL_PROBS = "general_probs";
     private static final String CATEGORY_PROBS = "_probs";
+    private static final String CATEGORY_SEED = "_seed";
+    private static final String CATEGORY_DROPPED = "_dropped";
 
     public static void storeInBundle(Bundle bundle) {
         Float[] genProbs = categoryProbs.values().toArray(new Float[0]);
@@ -855,6 +880,10 @@ public class Generator {
 
             if (needsStore) {
                 bundle.put(cat.name().toLowerCase() + CATEGORY_PROBS, cat.probs);
+                if (cat.seed != null) {
+                    bundle.put(cat.name().toLowerCase() + CATEGORY_SEED, cat.seed);
+                    bundle.put(cat.name().toLowerCase() + CATEGORY_DROPPED, cat.dropped);
+                }
             }
         }
     }
@@ -874,6 +903,10 @@ public class Generator {
                 float[] probs = bundle.getFloatArray(cat.name().toLowerCase() + CATEGORY_PROBS);
                 if (cat.defaultProbs != null && probs.length == cat.defaultProbs.length) {
                     cat.probs = probs;
+                }
+                if (bundle.contains(cat.name().toLowerCase() + CATEGORY_SEED)){
+                    cat.seed = bundle.getLong(cat.name().toLowerCase() + CATEGORY_SEED);
+                    cat.dropped = bundle.getInt(cat.name().toLowerCase() + CATEGORY_DROPPED);
                 }
             }
         }

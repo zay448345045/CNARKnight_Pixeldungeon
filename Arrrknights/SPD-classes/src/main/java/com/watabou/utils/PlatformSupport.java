@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2022 Evan Debenham
+ * Copyright (C) 2014-2021 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,16 +21,14 @@
 
 package com.watabou.utils;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.watabou.noosa.Game;
+import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 public abstract class PlatformSupport {
 
@@ -60,30 +58,6 @@ public abstract class PlatformSupport {
 	//TODO should consider spinning this into its own class, rather than platform support getting ever bigger
 	protected static HashMap<FreeTypeFontGenerator, HashMap<Integer, BitmapFont>> fonts;
 
-	protected static FreeTypeFontGenerator fallbackFontGenerator;
-	//splits on newlines, underscores, and chinese/japaneses characters
-
-	protected static Pattern regularsplitter = Pattern.compile(
-			"(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\\\)|(?=\\\\)|" +
-					"(?<=[^\\x00-\\xff])|(?=[^\\x00-\\xff])|" +
-					"(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
-					"(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
-					"(?<=\\p{InHangul_Syllables})|(?=!\\p{InHangul_Syllables})|" +
-					"(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +
-					"(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})" +
-					"(?<=\\p{InHalfwidth_and_Fullwidth_Forms})|(?=\\p{InHalfwidth_and_Fullwidth_Forms})");
-
-	//additionally splits on words, so that each word can be arranged individually
-	protected static Pattern regularsplitterMultiline = Pattern.compile(
-			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\\\)|(?=\\\\)|" +
-					"(?<=[^\\x00-\\xff])|(?=[^\\x00-\\xff])|" +
-					"(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
-					"(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
-					"(?<=\\p{InHangul_Syllables})|(?=!\\p{InHangul_Syllables})|" +
-					"(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +
-					"(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})" +
-					"(?<=\\p{InHalfwidth_and_Fullwidth_Forms})|(?=\\p{InHalfwidth_and_Fullwidth_Forms})");
-
 	protected int pageSize;
 	protected PixmapPacker packer;
 	protected boolean systemfont;
@@ -92,13 +66,7 @@ public abstract class PlatformSupport {
 
 	protected abstract FreeTypeFontGenerator getGeneratorForString( String input );
 
-	public String[] splitforTextBlock(String text, boolean multiline) {
-		if (multiline) {
-			return regularsplitterMultiline.split(text);
-		} else {
-			return regularsplitter.split(text);
-		}
-	}
+	public abstract String[] splitforTextBlock( String text, boolean multiline );
 
 	public void resetGenerators(){
 		resetGenerators( true );
@@ -186,11 +154,7 @@ public abstract class PlatformSupport {
 		return fonts.get(generator).get(key);
 	}
 
-	public boolean isAndroid() {
-		return Gdx.app.getType() == Application.ApplicationType.Android;
-	}
-
-	public boolean isDesktop() {
-		return Gdx.app.getType() == Application.ApplicationType.Desktop;
-	}
+	/*public static abstract class TextCallback {
+		public abstract void onSelect( boolean positive, String text );
+	}*/
 }

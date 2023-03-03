@@ -283,8 +283,9 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static boolean systemFont(){
-		return getBoolean(KEY_SYSTEMFONT,
-				(language() == Languages.KOREAN ));
+		return false;
+		//return getBoolean(KEY_SYSTEMFONT,
+		//		(language() == Languages.KOREAN ));
 	}//the return changes in the annotation version
 
 	//Connectivity

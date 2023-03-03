@@ -63,6 +63,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurs
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfWarp;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.ChaosCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.BackpackCleaner;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.CustomWeapon;
@@ -182,6 +184,12 @@ import com.watabou.utils.DeviceCompat;
 			//new CorpseDust().collect();
 			//new KazemaruWeapon().identify().collect();
 			//new BookJackinthebox().collect();
+			CurseInfusion cu = new CurseInfusion();
+			cu.quantity(100).collect();
+			ChaosCatalyst chao = new ChaosCatalyst();
+			chao.quantity(100).collect();
+			//ScrollOfUpgrade UP = new ScrollOfUpgrade();
+			//UP.quantity(100).collect();
 			new TomeOfMastery().collect();
 			new Pickaxe().collect();
 		}
