@@ -43,13 +43,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.android.windows.WndAndroidTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.watabou.noosa.Game;
-import com.watabou.utils.Callback;
 import com.watabou.utils.PlatformSupport;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AndroidPlatformSupport extends PlatformSupport {
@@ -173,7 +172,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		}
 	}
 
-	@Override
+	/*@Override
 	public boolean openURI(String URI) {
 		//copied from LibGDX 1.9.14 source
 		final Uri uri = Uri.parse(URI);
@@ -188,9 +187,9 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		} catch (ActivityNotFoundException e) {
 			return false;
 		}
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void promptTextInput(final String title, final String hintText, final int maxLen, final boolean multiLine, final String posTxt, final String negTxt, final TextCallback callback) {
 		Game.runOnRenderThread( new Callback() {
 					@Override
@@ -204,13 +203,13 @@ public class AndroidPlatformSupport extends PlatformSupport {
 					}
 				}
 		);
-	}
+	}*/
 	
 	/* FONT SUPPORT */
 	
-	private int pageSize;
+	/*private int pageSize;
 	private PixmapPacker packer;
-	private boolean systemfont;
+	private boolean systemfont;*/
 	
 	//droid sans / roboto, or a custom pixel font, for use with Latin and Cyrillic languages
 	private static FreeTypeFontGenerator basicFontGenerator;
@@ -223,12 +222,15 @@ public class AndroidPlatformSupport extends PlatformSupport {
 	//droid sans / noto sans, for use with Simplified Chinese
 	private static FreeTypeFontGenerator SCFontGenerator;
 	private static HashMap<Integer, BitmapFont> SCFonts = new HashMap<>();
-	
+
+	//droid sans / noto sans, for use with Traditional Chinese
+	private static FreeTypeFontGenerator TCFontGenerator;
+
 	//droid sans / noto sans, for use with Japanese
 	private static FreeTypeFontGenerator JPFontGenerator;
 	private static HashMap<Integer, BitmapFont> JPFonts = new HashMap<>();
 	
-	private static HashMap<FreeTypeFontGenerator, HashMap<Integer, BitmapFont>> fonts;
+	//private static HashMap<FreeTypeFontGenerator, HashMap<Integer, BitmapFont>> fonts;
 	
 	//special logic for handling korean android 6.0 font oddities
 	private static boolean koreanAndroid6OTF = false;
@@ -241,8 +243,9 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		}
 		this.pageSize = pageSize;
 		this.systemfont = systemfont;
-		
-		if (fonts != null){
+
+		resetGenerators(false);
+		/*if (fonts != null){
 			for (FreeTypeFontGenerator generator : fonts.keySet()){
 				for (BitmapFont f : fonts.get(generator).values()){
 					f.dispose();
@@ -257,16 +260,23 @@ public class AndroidPlatformSupport extends PlatformSupport {
 				}
 				packer.dispose();
 			}
-		}
+		}*/
 		fonts = new HashMap<>();
-		basicFontGenerator = KRFontGenerator = SCFontGenerator = JPFontGenerator = null;
-		
-		if (systemfont && Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf").exists()) {
+		basicFontGenerator = KRFontGenerator = SCFontGenerator = TCFontGenerator = JPFontGenerator = fallbackFontGenerator = null;
+
+		if (Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf").exists()) {
 			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf"));
-		} else if (systemfont && Gdx.files.absolute("/system/fonts/DroidSans.ttf").exists()){
+		} else if (Gdx.files.absolute("/system/fonts/DroidSans.ttf").exists()){
 			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/DroidSans.ttf"));
-		} else {
-			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
+		}
+		if (!systemfont) {
+			if (basicFontGenerator == null) {
+				basicFontGenerator = fallbackFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
+			}
+			else {
+				fallbackFontGenerator = basicFontGenerator;
+				basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
+			}
 		}
 		
 		//android 7.0+. all asian fonts are nicely contained in one spot
@@ -277,15 +287,16 @@ public class AndroidPlatformSupport extends PlatformSupport {
 				//case JAPANESE:
 				//	typeFace = 0;
 				//	break;
-				case KOREAN:
+				case KOREAN://change from budding
 					typeFace = 1;
 					break;
 			//	case CHINESE:
 				default:
 					typeFace = 2;
 			}
-			KRFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansCJK-Regular.ttc"), typeFace);
-			//KRFontGenerator = SCFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansCJK-Regular.ttc"), typeFace);
+			KRFontGenerator = SCFontGenerator = TCFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansCJK-Regular.ttc"), typeFace);
+			/*KRFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansCJK-Regular.ttc"), typeFace);
+			KRFontGenerator = SCFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansCJK-Regular.ttc"), typeFace);*/
 			
 		//otherwise we have to go over a few possibilities.
 		} else {
@@ -298,21 +309,29 @@ public class AndroidPlatformSupport extends PlatformSupport {
 				koreanAndroid6OTF = true;
 			}
 
-			/*
-			//Chinese font generators
+
+			//Simplified Chinese font generators
 			if (Gdx.files.absolute("/system/fonts/NotoSansSC-Regular.otf").exists()){
 				SCFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansSC-Regular.otf"));
 			} else if (Gdx.files.absolute("/system/fonts/NotoSansHans-Regular.otf").exists()){
 				SCFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansHans-Regular.otf"));
 			}
-			
+
+			//Traditional Chinese font generators
+			if (Gdx.files.absolute("/system/fonts/NotoSansTC-Regular.otf").exists()){
+				TCFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansTC-Regular.otf"));
+			} else if (Gdx.files.absolute("/system/fonts/NotoSansHant-Regular.otf").exists()){
+				TCFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansHant-Regular.otf"));
+			}
+
+
 			//Japaneses font generators
 			if (Gdx.files.absolute("/system/fonts/NotoSansJP-Regular.otf").exists()){
 				JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/NotoSansJP-Regular.otf"));
 			}
-			*/
 
-			
+
+
 			//set up a fallback generator for any remaining fonts
 			FreeTypeFontGenerator fallbackGenerator;
 			if (Gdx.files.absolute("/system/fonts/DroidSansFallback.ttf").exists()){
@@ -321,23 +340,42 @@ public class AndroidPlatformSupport extends PlatformSupport {
 				//no fallback font, just set to null =/
 				fallbackGenerator = null;
 			}
-			
+
+
 			if (KRFontGenerator == null) KRFontGenerator = fallbackGenerator;
-	//		if (SCFontGenerator == null) SCFontGenerator = fallbackGenerator;
-	//		if (JPFontGenerator == null) JPFontGenerator = fallbackGenerator;
-			
+			if (SCFontGenerator == null) SCFontGenerator = fallbackGenerator;
+			if (TCFontGenerator == null) TCFontGenerator = fallbackGenerator;
+			if (JPFontGenerator == null) JPFontGenerator = fallbackGenerator;
+
+
 		}
-		
-		if (basicFontGenerator != null) fonts.put(basicFontGenerator, basicFonts);
-		if (KRFontGenerator != null) fonts.put(KRFontGenerator, KRFonts);
-	//	if (SCFontGenerator != null) fonts.put(SCFontGenerator, SCFonts);
-	//	if (JPFontGenerator != null) fonts.put(JPFontGenerator, JPFonts);
-		
+		if (!systemfont) {
+			/*switch (SPDSettings.language()) {
+				case CHINESE:
+					fallbackFontGenerator = SCFontGenerator;
+					break;
+				case HARDCHINESE:
+					fallbackFontGenerator = TCFontGenerator;
+					break;
+				case JAPANESE:
+					fallbackFontGenerator = JPFontGenerator;
+					break;
+			}*/
+			KRFontGenerator = SCFontGenerator = TCFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
+		}
+
+		if (basicFontGenerator != null) fonts.put(basicFontGenerator, new HashMap<>());
+		if (KRFontGenerator != null) fonts.put(KRFontGenerator, new HashMap<>());
+		if (SCFontGenerator != null) fonts.put(SCFontGenerator, new HashMap<>());
+		if (TCFontGenerator != null) fonts.put(TCFontGenerator, new HashMap<>());
+		if (JPFontGenerator != null) fonts.put(JPFontGenerator, new HashMap<>());
+		if (fallbackFontGenerator != null) fonts.put(fallbackFontGenerator, new HashMap<>());
+
 		//would be nice to use RGBA4444 to save memory, but this causes problems on some gpus =S
 		packer = new PixmapPacker(pageSize, pageSize, Pixmap.Format.RGBA8888, 1, false);
 	}
-	
-	@Override
+
+	/*@Override
 	public void resetGenerators() {
 		if (fonts != null) {
 			for (FreeTypeFontGenerator generator : fonts.keySet()) {
@@ -359,7 +397,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		setupFontGenerators(pageSize, systemfont);
 	}
 
-	@Override
+	//@Override
 	//FIXME it would be really nice to keep the local texture data and just re-send it to the GPU
 	public void reloadGenerators() {
 		if (packer != null) {
@@ -377,25 +415,30 @@ public class AndroidPlatformSupport extends PlatformSupport {
 			}
 			packer = new PixmapPacker(pageSize, pageSize, Pixmap.Format.RGBA8888, 1, false);
 		}
-	}
+	}*/
 
-	private static Pattern KRMatcher = Pattern.compile("\\p{InHangul_Syllables}");
-	private static Pattern SCMatcher = Pattern.compile("\\p{InCJK_Unified_Ideographs}|\\p{InCJK_Symbols_and_Punctuation}|\\p{InHalfwidth_and_Fullwidth_Forms}");
-	private static Pattern JPMatcher = Pattern.compile("\\p{InHiragana}|\\p{InKatakana}");
-	
-	private static FreeTypeFontGenerator getGeneratorForString( String input ){
-		if (KRMatcher.matcher(input).find()){
-			return KRFontGenerator;
-	/*	} else if (SCMatcher.matcher(input).find()){
-			return SCFontGenerator;
-		} else if (JPMatcher.matcher(input).find()){
-			return JPFontGenerator;
-		*/} else {
-			return basicFontGenerator;
+	private static Matcher KRMatcher = Pattern.compile("\\p{InHangul_Syllables}").matcher("");
+	private static Matcher CNMatcher = Pattern.compile("\\p{InCJK_Unified_Ideographs}|\\p{InCJK_Symbols_and_Punctuation}|\\p{InHalfwidth_and_Fullwidth_Forms}").matcher("");
+	private static Matcher JPMatcher = Pattern.compile("\\p{InHiragana}|\\p{InKatakana}").matcher("");
+protected FreeTypeFontGenerator getGeneratorForString( String input ){
+	if (KRMatcher.reset(input).find()){
+		return KRFontGenerator;
+	} else if (CNMatcher.reset(input).find()){
+		switch (SPDSettings.language()) {
+			//case CHINESE:
+			default:
+				return SCFontGenerator;
+			//case HARDCHINESE:
+			//	return TCFontGenerator;
 		}
+	} else if (JPMatcher.reset(input).find()){
+		return JPFontGenerator;
+	} else {
+		return basicFontGenerator;
+	}
 	}
 	
-	@Override
+	/*@Override
 	public BitmapFont getFont(int size, String text) {
 		FreeTypeFontGenerator generator = getGeneratorForString(text);
 		
@@ -436,8 +479,8 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		}
 		
 		return fonts.get(generator).get(size);
-	}
-	
+	}*/
+	/*
 	//splits on newlines, underscores, and chinese/japaneses characters
 	private Pattern regularsplitter = Pattern.compile(
 			"(?<=\n)|(?=\n)|(?<=_)|(?=_)|" +
@@ -455,10 +498,10 @@ public class AndroidPlatformSupport extends PlatformSupport {
 					"(?<=\\p{InCJK_Unified_Ideographs})|(?=\\p{InCJK_Unified_Ideographs})|" +
 					"(?<=\\p{InCJK_Symbols_and_Punctuation})|(?=\\p{InCJK_Symbols_and_Punctuation})|" +
 					"(?<=\\p{InHalfwidth_and_Fullwidth_Forms})|(?=\\p{InHalfwidth_and_Fullwidth_Forms})");
-	
+*/
 	//splits on each non-hangul character. Needed for weird android 6.0 font files
-	private Pattern android6KRSplitter = Pattern.compile(
-			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|" +
+	private static Pattern android6KRSplitter = Pattern.compile(
+			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\\\)|(?=\\\\)|" +
 					"(?!\\p{InHangul_Syllables})|(?<!\\p{InHangul_Syllables})");
 	
 	@Override
@@ -471,5 +514,13 @@ public class AndroidPlatformSupport extends PlatformSupport {
 			return regularsplitter.split(text);
 		}
 	}
-	
+
+	@Override
+	public boolean isAndroid() {
+		return true;
+	}
+	@Override
+	public boolean isDesktop() {
+		return false;
+	}
 }
