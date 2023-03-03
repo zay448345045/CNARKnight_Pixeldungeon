@@ -160,6 +160,21 @@ public class Bundle {
 			return null;
 		}
 	}
+
+	public long[] getLongArray( String key ) {
+		try {
+			JSONArray array = data.getJSONArray( key );
+			int length = array.length();
+			long[] result = new long[length];
+			for (int i=0; i < length; i++) {
+				result[i] = array.getLong( i );
+			}
+			return result;
+		} catch (JSONException e) {
+			Game.reportException(e);
+			return null;
+		}
+	}
 	
 	public float[] getFloatArray( String key ) {
 		try {
@@ -352,7 +367,19 @@ public class Bundle {
 			Game.reportException(e);
 		}
 	}
-	
+
+	public void put( String key, long[] array ) {
+		try {
+			JSONArray jsonArray = new JSONArray();
+			for (int i=0; i < array.length; i++) {
+				jsonArray.put( i, array[i] );
+			}
+			data.put( key, jsonArray );
+		} catch (JSONException e) {
+			Game.reportException(e);
+		}
+	}
+
 	public void put( String key, float[] array ) {
 		try {
 			JSONArray jsonArray = new JSONArray();

@@ -108,7 +108,9 @@ public class Button extends Component {
 	protected boolean onLongClick() {
 		return false;
 	}
-	
+	protected String hoverText() {
+		return null;
+	}
 	@Override
 	protected void layout() {
 		hotArea.x = x;

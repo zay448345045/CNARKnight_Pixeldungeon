@@ -52,7 +52,9 @@ public class Game implements ApplicationListener {
 	// Size of the EGL surface view
 	public static int width;
 	public static int height;
-	
+
+	//number of pixels from bottom of view before rendering starts
+	public static int bottomInset;
 	// Density: mdpi=1, hdpi=1.5, xhdpi=2...
 	public static float density = 1;
 	
@@ -75,7 +77,7 @@ public class Game implements ApplicationListener {
 	public static float timeTotal = 0f;
 	public static long realTime = 0;
 	
-	protected static InputHandler inputHandler;
+	public static InputHandler inputHandler;
 	
 	public static PlatformSupport platform;
 	
@@ -94,16 +96,19 @@ public class Game implements ApplicationListener {
 	@Override
 	public void create() {
 		density = Gdx.graphics.getDensity();
+		if (density == Float.POSITIVE_INFINITY){
+			density = 100f / 160f; //assume 100PPI if density can't be found
+		}
 		dispHeight = Gdx.graphics.getDisplayMode().height;
 		dispWidth = Gdx.graphics.getDisplayMode().width;
 		
 		inputHandler = new InputHandler( Gdx.input );
-		
+
 		//refreshes texture and vertex data stored on the gpu
 		versionContextRef = Gdx.graphics.getGLVersion();
 		Blending.useDefault();
 		TextureCache.reload();
-		Vertexbuffer.refreshAllBuffers();
+		Vertexbuffer.reload();
 	}
 
 	private GLVersion versionContextRef;
@@ -120,7 +125,7 @@ public class Game implements ApplicationListener {
 			versionContextRef = Gdx.graphics.getGLVersion();
 			Blending.useDefault();
 			TextureCache.reload();
-			Vertexbuffer.refreshAllBuffers();
+			Vertexbuffer.reload();
 		}
 		
 		if (height != Game.height || width != Game.width) {
@@ -269,7 +274,7 @@ public class Game implements ApplicationListener {
 	}
 	
 	public static void reportException( Throwable tr ) {
-		if (instance != null) {
+		if (instance != null && Gdx.app != null) {
 			instance.logException(tr);
 		} else {
 			//fallback if error happened in initialization

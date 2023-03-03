@@ -34,7 +34,7 @@ public class Script extends Program {
 	
 	private static Script curScript = null;
 	private static Class<? extends Script> curScriptClass = null;
-	
+
 	@SuppressWarnings("unchecked")
 	public synchronized static<T extends Script> T use( Class<T> c ) {
 		
@@ -44,10 +44,6 @@ public class Script extends Program {
 			if (script == null) {
 				script = Reflection.newInstance( c );
 				all.put( c, script );
-			}
-			
-			if (curScript != null) {
-				curScript.unuse();
 			}
 			
 			curScript = script;
@@ -77,7 +73,10 @@ public class Script extends Program {
 		link();
 
 	}
-	
-	public void unuse() {
+
+	public synchronized static void unuse(){
+		curScript = null;
+		curScriptClass = null;
 	}
+
 }
