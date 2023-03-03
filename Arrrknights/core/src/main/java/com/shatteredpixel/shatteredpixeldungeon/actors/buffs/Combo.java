@@ -406,12 +406,12 @@ public class Combo extends Buff implements ActionIndicator.Action {
 					break;
 				case CRUSH:
 					if (Dungeon.hero.belongings.weapon instanceof GunWeapon) {
+							hit(enemy);//change from budding
 						if (enemy.isAlive()) {
 							GameScene.flash( 0x80FFFFFF );
 							Sample.INSTANCE.play(Assets.Sounds.BLAST, 1.1f, 1.26f);
 							Buff.affect(enemy, Paralysis.class, 1f);
 							Buff.affect(enemy, Blindness.class, count*0.3f);
-							hit(enemy);
 						}
 					}
 					else {

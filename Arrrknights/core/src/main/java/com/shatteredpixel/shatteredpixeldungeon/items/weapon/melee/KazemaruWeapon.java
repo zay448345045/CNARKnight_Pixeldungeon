@@ -24,7 +24,7 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 
 public class KazemaruWeapon extends MeleeWeapon {
-    public static boolean kazemaruweaponisally =false;//change from budding
+
     {
         image = ItemSpriteSheet.POMBBAY;
         hitSound = Assets.Sounds.HIT_SLASH;
@@ -40,7 +40,11 @@ public class KazemaruWeapon extends MeleeWeapon {
     }
 
     public String statsInfo() {
-        return Messages.get(this, "stats_desc", 1+buffedLvl(), 20+(buffedLvl()*5));
+		if (isIdentified()) {
+            return Messages.get(this, "stats_desc", 1+buffedLvl(), 20+buffedLvl()*5);//change from budding
+        } else {
+            return Messages.get(this, "typical_stats_desc", 1, 20);
+        }
     }
 
     @Override
@@ -57,13 +61,13 @@ public class KazemaruWeapon extends MeleeWeapon {
             int spawnd = 0;
             while (respawnPoints.size() > 0 && spawnd == 0) {
                 int index = Random.index(respawnPoints);
-                if (attacker instanceof Hero || attacker.alignment == Char.Alignment.ALLY) kazemaruweaponisally = true;//change from budding
+
                 KazemaruSummon summon = new KazemaruSummon();
                 summon.GetWeaponLvl(buffedLvl());
                 summon.GetTarget(defender);
+                if (attacker instanceof Hero || attacker.alignment == Char.Alignment.ALLY) summon.GetAlignment(true);//change from budding
                 GameScene.add(summon);
                 ScrollOfTeleportation.appear(summon, respawnPoints.get(index));
-                kazemaruweaponisally = false;//change from budding
 
                 respawnPoints.remove(index);
                 spawnd++;
@@ -81,7 +85,7 @@ public class KazemaruWeapon extends MeleeWeapon {
 
             flying = true;
             state = WANDERING;
-            if (kazemaruweaponisally) alignment = Alignment.ALLY;//change from budding
+
         }
 
         @Override
@@ -96,22 +100,10 @@ public class KazemaruWeapon extends MeleeWeapon {
             return Random.NormalIntRange(maxLvl + 1, 20 + (maxLvl * 5));
         }
         @Override//change from budding
-        public int attackSkill( Char target ){return (kazemaruweaponisally)?(Dungeon.hero.attackSkill(target)):(9+Dungeon.depth);}//change from budding
+        public int attackSkill( Char target ){return (alignment == Alignment.ALLY)?(Dungeon.hero.attackSkill(target)):(9+Dungeon.depth);}//change from budding
         public void GetWeaponLvl(int wlvl) {
             maxLvl = wlvl;
         }
         public void GetTarget(Char t) {target = t.pos;}//change from budding
-    }
-    private static final String KAZEMARU = "kazemaru";//change from budding
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(KAZEMARU, kazemaruweaponisally);//change from budding
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        if (bundle.contains(KAZEMARU)) kazemaruweaponisally=bundle.getBoolean(KAZEMARU);//change from budding
-    }
-}
+        public void GetAlignment(boolean isally){if (isally) alignment = Alignment.ALLY;}//change from budding
+    }}

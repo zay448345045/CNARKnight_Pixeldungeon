@@ -25,40 +25,27 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
-import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
+import com.shatteredpixel.shatteredpixeldungeon.custom.dict.DictBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.AnnihilationGear;
-import com.shatteredpixel.shatteredpixeldungeon.items.ArmorUpKit;
-import com.shatteredpixel.shatteredpixeldungeon.items.Bonk;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.NewGameItem.Certificate;
-import com.shatteredpixel.shatteredpixeldungeon.items.NewGameItem.Closure_FoodBox;
-import com.shatteredpixel.shatteredpixeldungeon.items.NewGameItem.Closure_IdentifyBox;
-import com.shatteredpixel.shatteredpixeldungeon.items.NewGameItem.Closure_PotionBox;
-import com.shatteredpixel.shatteredpixeldungeon.items.NewGameItem.Closure_ScrollBox;
-import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookFoodPrep;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookJackinthebox;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookWolfPack;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SkillBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.TomeOfMastery;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.WalkieTalkie;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.IsekaiItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SealOfLight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.FoodBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.TestToolBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
-import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatCutlet;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.ingredients.Egg;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
@@ -67,51 +54,40 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMistress;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfWarp;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.SuperAdvanceguard;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.BackpackCleaner;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.CustomWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.Generators_Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.ImmortalShield;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.MobPlacer;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.C1_9mm;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.ChenSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Echeveria;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FlametailSword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Firmament;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Halberd;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Heamyo;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.ImageoverForm;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.KRISSVector;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.KazemaruWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.EX42;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.NEARL_AXE;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.PatriotSpear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.SakuraSword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.ShadowFirmament;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.SnowHunter;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.SwordofArtorius;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Niansword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.LightKnife;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.NormalMagazine;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.DeviceCompat;
 
-import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
+//import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 
  public enum HeroClass {
 
@@ -181,6 +157,34 @@ import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 
 		new FoodBag().collect();
 		Dungeon.LimitedDrops.FOOD_BAG.drop();
+		if (Dungeon.isChallenged(Challenges.TEST)) {
+			new TestToolBag().collect();
+			new Generators_Armor().collect();
+			//new Generators_Ring().collect();
+			new DictBook().collect();
+			new MobPlacer().collect();
+			new BackpackCleaner().collect();
+			new ImmortalShield().collect();
+			Item customweapon = new CustomWeapon().identify();
+			customweapon.collect();
+			//new TimeReverser().collect();
+			PotionOfExperience pe = new PotionOfExperience();
+			pe.quantity(39).identify().collect();
+			PotionOfStrength ps = new PotionOfStrength();
+			ps.quantity(10).identify().collect();
+			StoneOfEnchantment se = new StoneOfEnchantment();
+			se.quantity(100).collect();
+			ScrollOfTransmutation tr = new ScrollOfTransmutation();
+			tr.quantity(100).identify().collect();
+			ScrollOfIdentify sid = new ScrollOfIdentify();
+			sid.quantity(100).collect();
+			new WalkieTalkie().collect();
+			//new CorpseDust().collect();
+			//new KazemaruWeapon().identify().collect();
+			//new BookJackinthebox().collect();
+			new TomeOfMastery().collect();
+			new Pickaxe().collect();
+		}
 	}
 
 	public Badges.Badge masteryBadge() {
@@ -394,6 +398,8 @@ import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 		 skillB.quantity(1).collect();
 		 Dungeon.quickslot.setSlot(0,skillB);
 		 new DewVial().collect();
+
+		 //new Generators().collect();//test
 	 }
 
 	public String title() {
@@ -526,7 +532,7 @@ import org.omg.PortableServer.SERVANT_RETENTION_POLICY_ID;
 	public boolean isUnlocked(){
 		//always unlock on debug builds
 		if (DeviceCompat.isDebug()) return true;
-		
+		//if (true)return true;//for sixfa
 		switch (this){
 			case WARRIOR: default:
 				return true;

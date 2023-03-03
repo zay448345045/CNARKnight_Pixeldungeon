@@ -37,9 +37,11 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndDailies;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndError;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndRanking;
 import com.watabou.noosa.BitmapText;
@@ -161,6 +163,29 @@ public class RankingsScene extends PixelScene {
 		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
 		add( btnExit );
 
+		int left = 0;
+
+		if (Rankings.INSTANCE.latestDaily != null) {
+			IconButton btnDailies = new IconButton(Icons.AMIYA.get()) {
+				@Override
+				protected void onClick() {
+					TomorrowRogueNight.scene().addToFront(new WndDailies());
+				}
+
+				@Override
+				protected void onPointerUp() {
+					icon.hardlight(0.5f, 1f, 2f);
+				}
+			};
+			btnDailies.icon().hardlight(0.5f, 1f, 2f);
+			btnDailies.setRect( left, 0, 20, 20 );
+			left += 20;
+			add(btnDailies);
+		}
+
+		if (Dungeon.daily){
+			addToFront(new WndDailies());
+		}
 		fadeIn();
 	}
 	

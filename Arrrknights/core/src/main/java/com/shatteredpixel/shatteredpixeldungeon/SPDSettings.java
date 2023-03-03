@@ -24,6 +24,8 @@ package com.shatteredpixel.shatteredpixeldungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.GameSettings;
@@ -159,8 +161,10 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_LAST_CLASS	= "last_class";
 	public static final String KEY_CHALLENGES	= "challenges";
 	public static final String KEY_INTRO		= "intro";
-	public static final String KEY_COIN		= "coins";
+	public static final String KEY_COIN		    = "coins";
 
+	public static final String KEY_LAST_DAILY	= "last_daily";
+	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_SUPPORT_NAGGED= "support_nagged";
 	
 	public static void intro( boolean value ) {
@@ -186,7 +190,21 @@ public class SPDSettings extends GameSettings {
 	public static int challenges() {
 		return getInt( KEY_CHALLENGES, 0, 0, Challenges.MAX_VALUE );
 	}
+	//change from budding;from shattered new version
+	public static void customSeed( String value ){
+		put( KEY_CUSTOM_SEED, value );
+	}
+	public static String customSeed() {
+		return getString( KEY_CUSTOM_SEED, "", 20);
+	}
 
+	public static void lastDaily( long value ){
+		put( KEY_LAST_DAILY, value );
+	}
+
+	public static long lastDaily() {
+		return getLong( KEY_LAST_DAILY, 0);
+	}
 	public static void supportNagged( boolean value ) {
 		put( KEY_SUPPORT_NAGGED, value );
 	}
@@ -266,8 +284,8 @@ public class SPDSettings extends GameSettings {
 	
 	public static boolean systemFont(){
 		return getBoolean(KEY_SYSTEMFONT,
-				(language() == Languages.KOREAN/* || language() == Languages.CHINESE || language() == Languages.JAPANESE*/));
-	}
+				(language() == Languages.KOREAN ));
+	}//the return changes in the annotation version
 
 	//Connectivity
 

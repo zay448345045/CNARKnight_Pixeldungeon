@@ -2,14 +2,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items.Skill;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.NervousImpairment;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.NewGameItem.Certificate;
 import com.shatteredpixel.shatteredpixeldungeon.items.Pombbay;
-import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.Nervous;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSunLight;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -45,14 +42,6 @@ public class SkillBook extends Item {
     public void execute(Hero hero, String action) {
         super.execute(hero, action);
         if (action.equals(AC_ACT)) {
-
-            if (hero.buff(NervousImpairment.class) == null) {
-                Buff.affect(hero, NervousImpairment.class);
-            }
-            else {
-                hero.buff(NervousImpairment.class).Sum(25);
-            }
-
             GameScene.show(
                     new WndOptions(Messages.get(this, "name"),
                             Messages.get(this, "wnddesc") + infoWnd(),
@@ -62,7 +51,29 @@ public class SkillBook extends Item {
 
                         @Override
                         protected void onSelect(int index) {
-                            if (index == 0) {
+                            int energy_cost[] = {30,60,100};
+                            int lowest_cost[] ={5,10,15};
+                            float real_cost=energy_cost[index]/(RingOfSunLight.SPBonus(Dungeon.hero));
+                            if (real_cost<lowest_cost[index]) real_cost=lowest_cost[index];
+                            if ((index==0 && hero.SK1==null) || (index==1 && hero.SK2==null) || (index==2 && hero.SK3==null)){
+                                GLog.w(Messages.get(SkillBook.class, "no_skill"));
+                            }
+                            else{
+                                if (charge < real_cost){
+                                    GLog.w(Messages.get(SkillBook.class, "low_charge"));
+                                }
+                                else {
+                                    charge-=real_cost;
+                                    updateQuickslot();
+                                    switch (index){
+                                        case 0:hero.SK1.doSkill();break;
+                                        case 1:hero.SK2.doSkill();break;
+                                        case 2:hero.SK3.doSkill();break;
+                                    }
+                                    Talent.onSkillUsed(Dungeon.hero);
+                                }
+                            }
+                            /*if (index == 0) {
                                 if (hero.SK1 != null) {
                                     if (charge < 30) {
                                         GLog.w(Messages.get(SkillBook.class, "low_charge"));
@@ -101,7 +112,7 @@ public class SkillBook extends Item {
                                         Talent.onSkillUsed(Dungeon.hero);
                                     }
                                 } else GLog.w(Messages.get(SkillBook.class, "no_skill"));
-                            }
+                            }*/
                         }
                     });
         }

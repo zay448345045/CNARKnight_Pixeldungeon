@@ -742,8 +742,14 @@ public class NewDM300 extends Mob {
         public boolean act() {
             for (int i : rockPositions) {
                 CellEmitter.get(i).start(Speck.factory(Speck.ROCK), 0.07f, 10);
-
-                if (Dungeon.isChallenged(Challenges.DECISIVE_BATTLE)) {
+				boolean avoid_pylon = true;
+				for (int i2 : NewCavesBossLevel.pylonPositions){//change from budding
+					if (i==i2){
+						avoid_pylon = false;
+						break;
+					}
+				}
+                if (avoid_pylon && Dungeon.isChallenged(Challenges.DECISIVE_BATTLE)) {
                     if (Random.IntRange(0,3) < 2) {
                         if (Dungeon.level.map[i] == Terrain.EMPTY || Dungeon.level.map[i] == Terrain.EMPTY_DECO || Dungeon.level.map[i] == Terrain.EMPTY_SP) {
                         Level.set(i, Terrain.WATER);

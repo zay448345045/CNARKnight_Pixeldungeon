@@ -49,9 +49,8 @@ public class Gluttony extends MeleeWeapon {
         super.execute(hero, action);
         if (action.equals(AC_ZAP)) {
             if (!isEquipped(hero)) return;
-
+                if (charge >= 50) {//change from budding
             if (!cursed) {
-                if (charge >= 50) {
                     for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
                         if (Dungeon.level.adjacent(mob.pos, hero.pos) && mob.alignment != Char.Alignment.ALLY) {
                             int dmg = hero.damageRoll();
@@ -67,7 +66,7 @@ public class Gluttony extends MeleeWeapon {
                     Invisibility.dispel();
                     updateQuickslot();
                     hero.spendAndNext(1f);
-                }
+                
             }
             else {
                 Buff.affect(hero, Roots.class, 5f);
@@ -76,7 +75,8 @@ public class Gluttony extends MeleeWeapon {
                 Invisibility.dispel();
                 updateQuickslot();
                 hero.spendAndNext(1f);
-            }
+		}
+		}
         }
     }
 

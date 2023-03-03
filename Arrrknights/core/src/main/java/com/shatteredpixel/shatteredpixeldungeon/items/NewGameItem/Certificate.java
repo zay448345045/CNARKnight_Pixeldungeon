@@ -26,7 +26,7 @@ public class Certificate extends Item {
         else if (Challenges.activeChallenges() > 2) this.quantity += 2;
         else if (Challenges.activeChallenges() > 0) this.quantity += 1;
 
-        if (Dungeon.eazymode == 1) this.quantity = 0;
+        if (Dungeon.eazymode == 1 || !Badges.is_not_test || !Dungeon.customSeedText.isEmpty()) this.quantity = 0;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Certificate extends Item {
     }
 
     public static void specialEndingBouns() {
-        if (Dungeon.eazymode != 1) {
+        if (Dungeon.eazymode != 1 && Badges.is_not_test && Dungeon.customSeedText.isEmpty()) {
 
             int bouns = 0;
             if (Challenges.activeChallenges() > 7) bouns += 50;

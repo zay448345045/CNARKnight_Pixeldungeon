@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.Group;
@@ -140,8 +141,20 @@ public class WndHero extends WndTabbed {
 
 			statSlot( Messages.get(this, "gold"), Statistics.goldCollected );
 			statSlot( Messages.get(this, "depth"), Statistics.deepestFloor );
+			if (Dungeon.daily){
+				if (!Dungeon.dailyReplay) {
+					statSlot(Messages.get(this, "daily_for"), "_" + Dungeon.customSeedText + "_");
+				} else {
+					statSlot(Messages.get(this, "replay_for"), "_" + Dungeon.customSeedText + "_");
+				}
+			} else if (!Dungeon.customSeedText.isEmpty()){
+				statSlot( Messages.get(this, "custom_seed"), "_" + Dungeon.customSeedText + "_" );
+			} else {
+				statSlot( Messages.get(this, "dungeon_seed"), DungeonSeed.convertToCode(Dungeon.seed) );
+			}
 
-			pos += GAP;
+			//pos += GAP;
+
 			Hunger hungerlist = Buff.affect(hero,Hunger.class);//change from budding
 			statSlot(Messages.get(this,"hungeroutlook"),hungerlist.hunger()+"/"+Hunger.STARVING);//change from budding
 			statSlot(Messages.get(this,"enemies"),Statistics.enemiesSlain);//change from budding

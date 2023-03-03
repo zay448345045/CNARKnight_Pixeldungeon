@@ -1477,7 +1477,7 @@ public class Badges {
 	}
 	
 	public static void unlock( Badge badge ){
-		if (!isUnlocked(badge) && !Dungeon.customSeedText.isEmpty() && is_not_test){
+		if (!isUnlocked(badge) && Dungeon.customSeedText.isEmpty() && is_not_test){
 			global.add( badge );
 			saveNeeded = true;
 		}

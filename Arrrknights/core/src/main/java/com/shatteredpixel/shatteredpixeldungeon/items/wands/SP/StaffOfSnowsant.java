@@ -84,7 +84,7 @@ public class StaffOfSnowsant extends Wand {
 
         final int pulledPos = bestPos;
 
-         Talent.onArtifactUsed(hero);
+         //Talent.onArtifactUsed(hero); change from budding
          updateQuickslot();
 
 

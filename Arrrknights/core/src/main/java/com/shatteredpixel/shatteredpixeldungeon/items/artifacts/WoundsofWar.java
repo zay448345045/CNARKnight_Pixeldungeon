@@ -71,7 +71,7 @@ public class WoundsofWar extends Artifact {
                     updateQuickslot();
 
                     exp+=50;
-                    if (exp >= 50 + level() * 50 && level() < levelCap) upgrade();
+                    if (exp >= 50 + level() * 50 && level() < levelCap) {upgrade();exp-=(50 + level() * 50);}//change from budding
 
                     curUser.spendAndNext(1f);
                 }

@@ -127,6 +127,11 @@ public class GamesInProgress {
 		
 		info.depth = depth;
 		info.challenges = challenges;
+
+		info.seed = Dungeon.seed;
+		info.customSeed = Dungeon.customSeedText;
+		info.daily = Dungeon.daily;
+		info.dailyReplay = Dungeon.dailyReplay;
 		
 		info.level = hero.lvl;
 		info.str = hero.STR;
@@ -158,7 +163,12 @@ public class GamesInProgress {
 		public int depth;
 		public int version;
 		public int challenges;
-		
+
+		public long seed;
+		public String customSeed;
+		public boolean daily;
+		public boolean dailyReplay;
+
 		public int level;
 		public int str;
 		public int exp;

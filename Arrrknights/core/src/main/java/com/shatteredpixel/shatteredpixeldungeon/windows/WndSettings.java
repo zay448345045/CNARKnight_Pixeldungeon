@@ -729,7 +729,7 @@ public class WndSettings extends WndTabbed {
 			add(txtLangName);
 
 			txtLangInfo = PixelScene.renderTextBlock(6);
-			if (currLang == Languages.KOREAN) txtLangInfo.text("이 겜의 개발은 한국어에요 독따!!");
+			if (currLang == Languages.KOREAN) txtLangInfo.text("这个游戏的开发者使用的是韩语，好厉害！！但是本修改版作者用的是中文");
 			else if (currLang.status() == Languages.Status.REVIEWED) txtLangInfo.text(Messages.get(this, "completed"));
 			else if (currLang.status() == Languages.Status.UNREVIEWED) txtLangInfo.text(Messages.get(this, "unreviewed"));
 			else if (currLang.status() == Languages.Status.INCOMPLETE) txtLangInfo.text(Messages.get(this, "unfinished"));

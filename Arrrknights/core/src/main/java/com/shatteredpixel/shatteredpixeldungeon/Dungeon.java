@@ -74,7 +74,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel3;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel4;
-import com.shatteredpixel.shatteredpixeldungeon.levels.SeeLevel_part1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SiestaBossLevel_part1;
@@ -97,8 +96,13 @@ import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Dungeon {
 
@@ -199,8 +203,9 @@ public class Dungeon {
 	public static int talucount;
 	public static int siesta1_bosspower;
 
+	public static boolean daily;
+	public static boolean dailyReplay;
 	public static boolean extrastage_Gavial; // true라면 가비알 스테이지 실행
-	public static boolean extrastage_See;
 
 	public static boolean isPray; // 프리스티스를 위한 기도를 하였는가?
 	public static boolean killcat; // 엔딩 씬에서 켈시 하극상 출현용.
@@ -221,21 +226,35 @@ public class Dungeon {
 	public static SparseArray<ArrayList<Item>> droppedItems;
 	public static SparseArray<ArrayList<Item>> portedItems;
 
+	public static int initialVersion;
 	public static int version;
 	public static long seed;
+	public static String customSeedText = "";//change from budding;from shattered new version
 	
 	public static void init() {
 
-		version = Game.versionCode;
+		initialVersion = version = Game.versionCode;
 		challenges = SPDSettings.challenges();
 		mobsToChampion = -1;
-
-		seed = DungeonSeed.randomSeed();
+		if (daily) {//change from budding;from shattered new version
+			//Ensures that daily seeds are not in the range of user-enterable seeds
+			seed = SPDSettings.lastDaily() + DungeonSeed.TOTAL_SEEDS;
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+			format.setTimeZone(TimeZone.getTimeZone("UTC"));
+			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
+		} else if (!SPDSettings.customSeed().isEmpty()){
+			customSeedText = SPDSettings.customSeed();
+			seed = DungeonSeed.convertFromText(customSeedText);
+		} else {
+			customSeedText = "";
+			seed = DungeonSeed.randomSeed();
+		}
 
 		Actor.clear();
 		Actor.resetNextID();
-		
-		Random.pushGenerator( seed );
+
+		//offset seed slightly to avoid output patterns
+		Random.pushGenerator( seed+1 );//change from budding;from shattered new version
 
 			Scroll.initLabels();
 			Potion.initColors();
@@ -272,7 +291,6 @@ public class Dungeon {
 		isPray = false;
 		killcat = false;
 		extrastage_Gavial = false;
-		extrastage_See = false;
 
 		Jessica.QuestClear = false;
 		NPC_Phantom.QuestClear = false;
@@ -411,9 +429,8 @@ public class Dungeon {
 			case 32:
 			case 33:
 			case 34:
-				if (extrastage_Gavial) level = new GavialLevel();
-				else if (extrastage_See) level = new SeeLevel_part1();
-				else level = new SiestaLevel_part1();
+				if (extrastage_Gavial) {level = new GavialLevel(); break;}
+				level = new SiestaLevel_part1();
 				break;
 			case 35:
 				if (extrastage_Gavial) level = new GavialBossLevel1();
@@ -581,6 +598,9 @@ public class Dungeon {
 	
 	private static final String VERSION		= "version";
 	private static final String SEED		= "seed";
+	private static final String CUSTOM_SEED	= "custom_seed";
+	private static final String DAILY	    = "daily";
+	private static final String DAILY_REPLAY= "daily_replay";
 	private static final String CHALLENGES	= "challenges";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
@@ -607,7 +627,6 @@ public class Dungeon {
 	private static final String TALU    = "talucount";
 	private static final String SIEBOSS1    = "siesta1_bosspower";
 	private static final String GAVIAL    = "extrastage_Gavial";
-	private static final String SEE    = "extrastage_See";
 	private static final String CATQUEST    = "QuestCatPoint";
 	private static final String PHANTOM_QUESTCLEAR    = "NPC_Phantom.QuestClear";
 	private static final String JESI_QUESTCLEAR    = "Jessica.QuestClear";
@@ -628,6 +647,9 @@ public class Dungeon {
 			version = Game.versionCode;
 			bundle.put( VERSION, version );
 			bundle.put( SEED, seed );
+			bundle.put( CUSTOM_SEED, customSeedText );
+			bundle.put( DAILY, daily );
+			bundle.put( DAILY_REPLAY, dailyReplay );
 			bundle.put( CHALLENGES, challenges );
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
@@ -647,7 +669,6 @@ public class Dungeon {
 			bundle.put (TALU, talucount);
 			bundle.put (SIEBOSS1, siesta1_bosspower);
 			bundle.put (GAVIAL, extrastage_Gavial);
-			bundle.put (SEE, extrastage_See);
 
 			bundle.put (PHANTOM_QUESTCLEAR, NPC_Phantom.QuestClear);
 			bundle.put (JESI_QUESTCLEAR, Jessica.QuestClear);
@@ -749,7 +770,9 @@ public class Dungeon {
 		version = bundle.getInt( VERSION );
 
 		seed = bundle.contains( SEED ) ? bundle.getLong( SEED ) : DungeonSeed.randomSeed();
-
+		customSeedText = bundle.getString( CUSTOM_SEED );
+		daily = bundle.getBoolean( DAILY );
+		dailyReplay = bundle.getBoolean( DAILY_REPLAY );
 		Actor.restoreNextID( bundle );
 
 		quickslot.reset();
@@ -830,7 +853,6 @@ public class Dungeon {
 		talucount = bundle.getInt(TALU);
 		siesta1_bosspower = bundle.getInt(SIEBOSS1);
 		extrastage_Gavial = bundle.getBoolean(GAVIAL);
-		extrastage_See = bundle.getBoolean(SEE);
 
 		QuestCatPoint = bundle.getInt(CATQUEST);
 
@@ -907,6 +929,10 @@ public class Dungeon {
 		info.depth = bundle.getInt( DEPTH );
 		info.version = bundle.getInt( VERSION );
 		info.challenges = bundle.getInt( CHALLENGES );
+		info.seed = bundle.getLong( SEED );
+		info.customSeed = bundle.getString( CUSTOM_SEED );
+		info.daily = bundle.getBoolean( DAILY );
+		info.dailyReplay = bundle.getBoolean( DAILY_REPLAY );
 		Hero.preview( info, bundle.getBundle( HERO ) );
 		Statistics.preview( info, bundle );
 	}

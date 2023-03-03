@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.ui.Button;
 import com.watabou.utils.Bundle;
@@ -71,7 +72,8 @@ public class WndGameInProgress extends Window {
 		add(title);
 		
 		//manually produces debug information about a run, mainly useful for levelgen errors
-		Button debug = new Button(){
+		//now it's useless-change from budding
+		/*Button debug = new Button(){
 			@Override
 			protected boolean onLongClick() {
 				try {
@@ -85,7 +87,7 @@ public class WndGameInProgress extends Window {
 			}
 		};
 		debug.setRect(0, 0, title.imIcon.width(), title.imIcon.height);
-		add(debug);
+		add(debug);*/
 		
 		if (info.challenges > 0) GAP -= 2;
 		
@@ -116,7 +118,18 @@ public class WndGameInProgress extends Window {
 		pos += GAP;
 		statSlot( Messages.get(this, "gold"), info.goldCollected );
 		statSlot( Messages.get(this, "depth"), info.maxDepth );
-		
+		if (info.daily) {
+			if (info.dailyReplay) {
+				statSlot(Messages.get(this, "replay_for"), "_" + info.customSeed + "_");
+			} else {
+				statSlot(Messages.get(this, "daily_for"), "_" + info.customSeed + "_");
+			}
+		} else if (!info.customSeed.isEmpty()){
+			statSlot( Messages.get(this, "custom_seed"), "_" + info.customSeed + "_" );
+		} else {
+			statSlot( Messages.get(this, "dungeon_seed"), DungeonSeed.convertToCode(info.seed) );
+		}
+
 		pos += GAP;
 		
 		RedButton cont = new RedButton(Messages.get(this, "continue")){
@@ -127,6 +140,7 @@ public class WndGameInProgress extends Window {
 				GamesInProgress.curSlot = slot;
 				
 				Dungeon.hero = null;
+				Dungeon.daily = Dungeon.dailyReplay = false;
 				ActionIndicator.action = null;
 				InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
 				TomorrowRogueNight.switchScene(InterlevelScene.class);
@@ -171,9 +185,12 @@ public class WndGameInProgress extends Window {
 		RenderedTextBlock txt = PixelScene.renderTextBlock( label, 8 );
 		txt.setPos(0, pos);
 		add( txt );
-		
-		txt = PixelScene.renderTextBlock( value, 8 );
-		txt.setPos(WIDTH * 0.6f, pos);
+
+		int size = 8;
+		if (value.length() >= 14) size -=2;
+		if (value.length() >= 18) size -=1;
+		txt = PixelScene.renderTextBlock( value, size );
+		txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
 		PixelScene.align(txt);
 		add( txt );
 		

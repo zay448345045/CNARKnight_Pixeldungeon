@@ -31,10 +31,10 @@ public class GreenCat extends NPC {
     }
 
     private boolean seenBefore = false;
-
+    private boolean only_one_cat = false;
     @Override
     public void damage( int dmg, Object src ) {
-        flee();
+        if(!only_one_cat)flee();
     }
 
     public void flee() {
@@ -43,7 +43,7 @@ public class GreenCat extends NPC {
         CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
 
         destroy();
-
+        only_one_cat=true;
         Kaltsit not = new Kaltsit();
         not.pos = this.pos;
         GameScene.add(not);}
