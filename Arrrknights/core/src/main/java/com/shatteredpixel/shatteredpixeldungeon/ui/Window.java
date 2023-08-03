@@ -40,6 +40,7 @@ public class Window extends Group implements Signal.Listener<KeyEvent> {
 	protected int width;
 	protected int height;
 
+	protected int xOffset;
 	protected int yOffset;
 	
 	protected PointerArea blocker;
@@ -134,7 +135,11 @@ public class Window extends Group implements Signal.Listener<KeyEvent> {
 		shadow.boxRect( camera.x / camera.zoom, camera.y / camera.zoom, chrome.width(), chrome.height );
 	}
 
-	public void offset( int yOffset ){
+	public void offset( int xOffset, int yOffset ){
+		camera.x -= this.xOffset * camera.zoom;
+		this.xOffset = xOffset;
+		camera.x += xOffset * camera.zoom;
+
 		camera.y -= this.yOffset * camera.zoom;
 		this.yOffset = yOffset;
 		camera.y += yOffset * camera.zoom;

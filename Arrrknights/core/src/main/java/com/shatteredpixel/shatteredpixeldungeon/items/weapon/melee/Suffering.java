@@ -72,7 +72,7 @@ public class Suffering extends MeleeWeapon {
         super.execute(hero, action);
 
         if (action.equals(AC_ZAP) && charge >= 100) {
-            if (this.cursed != true) {
+            if (!this.cursed) {
                 cursedKnown = true;
                 GameScene.selectCell(zapper);
             }

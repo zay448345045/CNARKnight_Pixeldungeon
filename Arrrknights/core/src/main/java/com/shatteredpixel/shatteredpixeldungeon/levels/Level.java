@@ -474,7 +474,7 @@ public abstract class Level implements Bundlable {
 		}
 
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));
-		if (Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES) && !(m instanceof Originiutant) && !(m instanceof GiantMushroom)){
+		if (!(m instanceof Originiutant) && !(m instanceof GiantMushroom)){
 			ChampionEnemy.rollForChampion(m);
 		}
 		return m;
@@ -488,7 +488,6 @@ public abstract class Level implements Bundlable {
 		if (!locked) {
 			locked = true;
 			Buff.affect(Dungeon.hero, LockedFloor.class);
-
 			if (Dungeon.hero.hasTalent(Talent.GRAND_ORDER) && Dungeon.bossLevel()) {
 				int HealHP = Dungeon.hero.HT;
 				HealHP *= Dungeon.hero.pointsInTalent(Talent.GRAND_ORDER) * 0.2f;
@@ -501,6 +500,10 @@ public abstract class Level implements Bundlable {
 				Buff.affect(Dungeon.hero, RadiantKnight.class, RadiantKnight.DURATION);
 				GameScene.flash( 0x80FFFFFF );
 				Sample.INSTANCE.play(Assets.Sounds.SKILL_BABYNIGHT);
+			}
+		}else {//change from budding
+			if (Dungeon.hero.buff(LockedFloor.class)==null){
+				Buff.affect(Dungeon.hero, LockedFloor.class);
 			}
 		}
 	}

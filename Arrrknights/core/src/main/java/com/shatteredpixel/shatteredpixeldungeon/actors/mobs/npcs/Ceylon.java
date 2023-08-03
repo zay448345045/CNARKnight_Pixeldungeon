@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CannotSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CeylonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndCeylon;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
@@ -196,7 +197,7 @@ public class Ceylon extends NPC {
 
                 reward = new ArmorUpKit();
             }
-            else if (!spawned && Dungeon.depth == 34) {
+            /*else if (!spawned && Dungeon.depth == 34) {
                 Ceylon npc = new Ceylon();
                 do {
                     npc.pos = level.randomRespawnCell( npc );
@@ -218,7 +219,7 @@ public class Ceylon extends NPC {
                 given = false;
 
                 reward = new ArmorUpKit();
-            }
+            }*/
         }
 
         public static void process( Mob mob ) {

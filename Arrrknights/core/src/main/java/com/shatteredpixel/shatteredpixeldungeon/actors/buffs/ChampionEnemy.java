@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -96,16 +97,21 @@ public abstract class ChampionEnemy extends Buff {
 		if (Dungeon.mobsToChampion <= 0) Dungeon.mobsToChampion = 8;
 
 		Dungeon.mobsToChampion--;
+		//change from budding
+//we roll for a champion enemy even if we aren't spawning one to ensure that
+		//mobsToChampion does not affect levelgen RNG (number of calls to Random.Int() is constant)
+		Class<?extends ChampionEnemy> buffCls;
+		switch (Random.Int(6)){
+			case 0: default:    buffCls = Blazing.class;      break;
+			case 1:             buffCls = Projecting.class;   break;
+			case 2:             buffCls = AntiMagic.class;    break;
+			case 3:             buffCls = Giant.class;        break;
+			case 4:             buffCls = Blessed.class;      break;
+			case 5:             buffCls = Growing.class;      break;
+		}
 
-		if (Dungeon.mobsToChampion <= 0){
-			switch (Random.Int(6)){
-				case 0: default:    Buff.affect(m, Blazing.class);      break;
-				case 1:             Buff.affect(m, Projecting.class);   break;
-				case 2:             Buff.affect(m, AntiMagic.class);    break;
-				case 3:             Buff.affect(m, Giant.class);        break;
-				case 4:             Buff.affect(m, Blessed.class);      break;
-				case 5:             Buff.affect(m, Growing.class);      break;
-			}
+		if (Dungeon.mobsToChampion <= 0 && Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES)) {
+			Buff.affect(m, buffCls);
 			m.state = m.WANDERING;
 		}
 	}

@@ -16,22 +16,22 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.YomaSprite;
 import com.watabou.utils.Random;
 
 public class FloatingSeaDrifter extends Mob {
-        {
-            spriteClass = Sea_DrifterSprite.class;
+    {
+        spriteClass = Sea_DrifterSprite.class;
 
-            HP = HT = 65;
+        HP = HT = 65;
+        defenseSkill=70;//change from budding
+        EXP = 14;
+        maxLvl = 29;
 
-            EXP = 14;
-            maxLvl = 29;
+        flying = true;
 
-            flying = true;
+        loot = Gold.class;
+        lootChance = 0.34f;
 
-            loot = new Gold();
-            lootChance = 0.34f;
-
-            properties.add(Property.SEA);
-            immunities.add(Paralysis.class);
-        }
+        properties.add(Property.SEA);
+        immunities.add(Paralysis.class);
+    }
 
     @Override
     public int damageRoll() {
@@ -50,13 +50,13 @@ public class FloatingSeaDrifter extends Mob {
 
     @Override
     public int defenseSkill(Char enemy) {
-            if (enemy instanceof Hero) {
-                if (Dungeon.hero.belongings.weapon.getClass() == MissileWeapon.class) {
-                    return 0;
-                }
+        if (enemy instanceof Hero) {
+            if (Dungeon.hero.belongings.weapon instanceof MissileWeapon) {//change from budding
+                return 0;
             }
+        }
 
-            return 70;
+        return super.defenseSkill(enemy);//change from budding
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FloatingSeaDrifter extends Mob {
         if (enemy.buff(NervousImpairment.class) == null) {
             Buff.affect(enemy, NervousImpairment.class);
         }
-        enemy.buff(NervousImpairment.class).Sum(8);
+        else enemy.buff(NervousImpairment.class).Sum(8);
 
         return super.attackProc(enemy, damage);
     }

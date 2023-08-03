@@ -32,34 +32,53 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gunaccessories.Muzzlebrake
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookCamouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookChainHook;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookCrimsonCutter;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookExecutionMode;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookFate;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookFierceGlare;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookFoodPrep;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookHikari;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookHotBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookLive;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookPhantomMirror;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookPowerfulStrike;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookShinkageryu;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookSoul;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookSpreadSpores;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookTacticalChanting;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookThoughts;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookWhispers;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.BookWolfSpirit;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK1.Bookpanorama;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookBenasProtracto;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookChargingPS;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookCoverSmoke;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookDawn;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookDeepHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookDreamland;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookEmergencyDefibrillator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookFlashShield;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookGenesis;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookJackinthebox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookLandingStrike;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookMentalBurst;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookNervous;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookNeverBackDown;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookPredators;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookReflow;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookRockfailHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookSpikes;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.BookWolfPack;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK2.Bookancientkin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookEveryone;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookNigetRaid;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookSBurst;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookShadowAssault;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookSharpness;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookSoaringFeather;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookSun;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookTerminationT;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookTrueSilverSlash;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.BookYourWish;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SkillBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -170,7 +189,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BladeDemon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.C1_9mm;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.CatGun;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.ChenSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.CrabGun;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.DP27;
@@ -179,14 +201,28 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.DivineAvatar;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.EX42;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Echeveria;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Enfild;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Enfild2;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Firmament;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flag;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Decapitator;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FlameKatana;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FlametailSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FolkSong;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gamzashield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gauntlet;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gluttony;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.GoldDogSword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.ImageoverForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.KazemaruWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.KollamSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.LoneJourney;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MinosFury;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Niansword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.PatriotSpear;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RhodesSword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.SakuraSword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.SanktaBet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.ShadowFirmament;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.DeepAbyss;
@@ -429,9 +465,11 @@ public class Generator {
                     Dagger.class,
                     MagesStaff.class,
                     EX42.class,
-                    NEARL_AXE.class
+                    NEARL_AXE.class,
+                    ChenSword.class,
+                    RhodesSword.class
             };
-            WEP_T1.probs = new float[]{1, 1, 1, 0, 1, 1};
+            WEP_T1.probs = new float[]{1, 1, 1, 0, 1, 1, 0, 0};
 
             WEP_T2.classes = new Class<?>[]{
                     Shortsword.class,
@@ -440,9 +478,11 @@ public class Generator {
                     Dirk.class,
                     MidnightSword.class,
                     Halberd.class,
-                    FlameKatana.class
+                    FlameKatana.class,
+                    Enfild.class,
+                    Firmament.class
             };
-            WEP_T2.probs = new float[]{4, 5, 4, 4, 4, 5, 3};
+            WEP_T2.probs = new float[]{4, 5, 4, 4, 4, 5, 3, 0, 0};
 
             WEP_T3.classes = new Class<?>[]{
                     Sword.class,
@@ -454,9 +494,11 @@ public class Generator {
                     SHISHIOH.class,
                     Flag.class,
                     DP27.class,
-                    C1_9mm.class
+                    C1_9mm.class,
+                    Enfild2.class,
+                    Gamzashield.class
             };
-            WEP_T3.probs = new float[]{5, 5, 5, 4, 4, 4, 4, 4, 3, 3};
+            WEP_T3.probs = new float[]{5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 0, 0};
 
             WEP_T4.classes = new Class<?>[]{
                     Longsword.class,
@@ -474,8 +516,12 @@ public class Generator {
                     MetallicUnion.class,
                     WarJournalist.class,
                     KazemaruWeapon.class,
+                    BladeDemon.class,
+                    Gluttony.class,
+                    GoldDogSword.class,
+                    SanktaBet.class
             };
-            WEP_T4.probs = new float[]{4, 5, 4, 4, 3, 4, 4, 4, 3, 3, 2, 4, 2, 3, 4};
+            WEP_T4.probs = new float[]{4, 5, 4, 4, 3, 4, 4, 4, 3, 3, 2, 4, 2, 3, 4, 0, 0, 0, 0};
 
             WEP_T5.classes = new Class<?>[]{
                     Greatsword.class,
@@ -493,9 +539,16 @@ public class Generator {
                     KRISSVector.class,
                     LoneJourney.class,
                     Echeveria.class,
-                    Suffering.class
+                    Suffering.class,
+                    CatGun.class,
+                    ImageoverForm.class,
+                    KollamSword.class,
+                    MinosFury.class,
+                    Niansword.class,
+                    PatriotSpear.class,
+                    SakuraSword.class
             };
-            WEP_T5.probs = new float[]{4, 3, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 3, 3, 3, 3};
+            WEP_T5.probs = new float[]{4, 3, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0};
 
             //see Generator.randomArmor
             ARMOR.classes = new Class<?>[]{
@@ -607,9 +660,15 @@ public class Generator {
                     BookSpreadSpores.class,
                     BookPhantomMirror.class,
                     BookLive.class,
-                    BookSoul.class
+                    BookSoul.class,
+                    BookExecutionMode.class,
+                    BookHikari.class,
+                    BookPowerfulStrike.class,
+                    BookTacticalChanting.class,
+                    BookThoughts.class,
+                    BookWhispers.class
             };
-            SKL_T1.probs = new float[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            SKL_T1.probs = new float[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
 
             SKL_T2.classes = new Class<?>[]{
                     BookJackinthebox.class,
@@ -624,17 +683,30 @@ public class Generator {
                     BookDreamland.class,
                     BookDeepHealing.class,
                     BookSpikes.class,
-                    BookPredators.class
+                    BookPredators.class,
+                    BookDawn.class,
+                    BookEmergencyDefibrillator.class,
+                    BookGenesis.class,
+                    BookMentalBurst.class,
+                    BookNervous.class,
+                    BookReflow.class,
+                    BookWolfPack.class
             };
-            SKL_T2.probs = new float[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            SKL_T2.probs = new float[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
 
             SKL_T3.classes = new Class<?>[]{
                     BookTrueSilverSlash.class,
                     BookTerminationT.class,
                     BookEveryone.class,
-                    BookSharpness.class
+                    BookSharpness.class,
+                    BookNigetRaid.class,
+                    BookSBurst.class,
+                    BookShadowAssault.class,
+                    BookSoaringFeather.class,
+                    BookSun.class,
+                    BookYourWish.class
             };
-            SKL_T3.probs = new float[]{1, 1, 1, 1};
+            SKL_T3.probs = new float[]{1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
 
 
             SKL_RND.classes = new Class<?>[]{
@@ -760,7 +832,7 @@ public class Generator {
 
     //overrides any deck systems and always uses default probs
     public static Item randomUsingDefaults(Category cat) {
-        if (cat.defaultProbs == null) {
+        if (cat.defaultProbs == null || cat == Category.ARTIFACT) {//change from budding,shattered
             return random(cat); //currently covers weapons/armor/missiles
         } else {
             return ((Item) Reflection.newInstance(cat.classes[Random.chances(cat.defaultProbs)])).random();
@@ -832,8 +904,16 @@ public class Generator {
     public static Artifact randomArtifact() {
 
         Category cat = Category.ARTIFACT;
+        if (cat.defaultProbs != null && cat.seed != null){
+            Random.pushGenerator(cat.seed);
+            for (int i = 0; i < cat.dropped; i++) Random.Long();
+        }//change from budding;shattered
         int i = Random.chances(cat.probs);
 
+        if (cat.defaultProbs != null && cat.seed != null){
+            Random.popGenerator();
+            cat.dropped++;
+        }
         //if no artifacts are left, return null
         if (i == -1) {
             return null;

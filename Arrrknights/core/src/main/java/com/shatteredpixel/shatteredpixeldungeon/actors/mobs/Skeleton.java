@@ -83,7 +83,6 @@ public class Skeleton extends Mob {
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;
 				}
-
 				if (Dungeon.isChallenged(Challenges.TACTICAL_UPGRADE) && !(ch instanceof Necromancer)) {
 					Buff.affect(ch, Burning.class).reignite(ch);
 				}

@@ -111,9 +111,19 @@ public class DewVial extends Item {
 
 			} else {
 				GLog.w( Messages.get(this, "empty") );
+
 			}
 
 		}
+		/*double[][] arr3=new double[3][3];
+		for (int i=0;i<3;++i)
+			for (int ij=0;ij<3;++ij)
+				arr3[i][ij]=Random.Float();
+		GLog.i(Double.toString(arr3[0][0]));
+		for (double val : arr3[0])
+			val++;
+		arr3[0][0]++;
+		GLog.i(Double.toString(arr3[0][0]));*/
 	}
 
 	public void empty() {volume = 0; updateQuickslot();}

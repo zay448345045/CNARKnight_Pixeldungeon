@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Alchemy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ActiveOriginium;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -62,6 +63,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.KnightSKILL;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LanceCharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.NervousImpairment;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RadiantKnight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
@@ -579,7 +581,7 @@ public class Hero extends Char {
 
         if (hasTalent(Talent.PEGASUS_AURA) && buff(RadiantKnight.class) != null) {
             float bouns = 1f;
-            bouns += pointsInTalent(Talent.PEGASUS_AURA) / 10;
+            bouns += pointsInTalent(Talent.PEGASUS_AURA) / 10.0f;//change from budding
 
             accuracy *= bouns;
         }
@@ -866,17 +868,37 @@ public class Hero extends Char {
             return;
         }
 
-        CloserangeShot crshot = buff(CloserangeShot.class);
+        /*CloserangeShot crshot = buff(CloserangeShot.class);
         if (crshot != null) {
             crshot.isActived();
-        }
+        }*/
 
         WildMark mark = buff(WildMark.class);
         if (mark != null) {
             mark.Charged(time);
         }
         else if (subClass == HeroSubClass.WILD) Buff.affect(this, WildMark.class);
+        if (Dungeon.depth > 35 && Dungeon.extrastage_Sea && Dungeon.level.map[this.pos] == Terrain.EMPTY_SP) {
+            if (buff(NervousImpairment.class) == null) {
+                Buff.affect(this, NervousImpairment.class);
+            }
+            else {
+                float nervousdamage = 2 * time;
+                buff(NervousImpairment.class).Sum(nervousdamage); }
 
+            int evaporatedTiles;
+            evaporatedTiles = Random.chances(new float[]{0, 0, 0, 2, 1, 1});
+            for (int i = 0; i < evaporatedTiles; i++) {
+                if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
+                    Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.EMPTY_SP);//change from budding
+                    //Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.EMPTY_SP;
+                    CellEmitter.get(pos+PathFinder.NEIGHBOURS8[i]).burst(Speck.factory(Speck.BUBBLE), 10);
+                    GameScene.updateMap( pos+PathFinder.NEIGHBOURS8[i] );
+                    Dungeon.observe();
+                    //GameScene.resetMap();
+                }
+            }
+        }
         if (belongings.weapon instanceof PatriotSpear) {
             if (belongings.armor instanceof PlateArmor) {
                 if (belongings.getItem(RingOfMight.class) != null && belongings.getItem(RingOfTenacity.class) != null) {
@@ -916,12 +938,12 @@ public class Hero extends Char {
                 Buff.affect(this, Heat.class);
             } else heat.Timeproc(time);
         }
-        PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.not(Dungeon.level.solid, null), 2);
+        PathFinder.buildDistanceMap(pos, BArray.not(Dungeon.level.solid, null), 2);//change from budding
         for (int cell = 0; cell < PathFinder.distance.length; cell++) {
             if (PathFinder.distance[cell] < Integer.MAX_VALUE) {
                 Char ch = Actor.findChar(cell);
                 if (ch != null&& !(ch instanceof Hero) && ch.alignment == Char.Alignment.ENEMY) {
-                    Buff.detach(Dungeon.hero, com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Camouflage.class); }}}
+                    Buff.detach(this, com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Camouflage.class); }}}//change from budding
 
 
 
@@ -1531,8 +1553,8 @@ public class Hero extends Char {
             default:
         }
 
-        if (hasTalent(Talent.SAVIOR_BELIEF) && enemy.buff(Roots.class) != null || enemy.buff(Paralysis.class) != null) {
-            BounsDamage = damage * (pointsInTalent(Talent.SAVIOR_BELIEF) * 0.15f);
+        if (hasTalent(Talent.SAVIOR_BELIEF) && (enemy.buff(Roots.class) != null || enemy.buff(Paralysis.class) != null)) {
+            BounsDamage += damage * (pointsInTalent(Talent.SAVIOR_BELIEF) * 0.15f);//change from budding
         }
 
         if (hasTalent(Talent.EXORCISM)) {
@@ -2087,13 +2109,11 @@ public class Hero extends Char {
 
             curAction = new HeroAction.Unlock(cell);
 
-        } else if ((cell == Dungeon.level.exit || Dungeon.level.map[cell] == Terrain.EXIT || Dungeon.level.map[cell] == Terrain.UNLOCKED_EXIT)
-                && Dungeon.depth < 41) {
-
+        } else if (!Dungeon.level.locked && ((cell == Dungeon.level.exit || Dungeon.level.map[cell] == Terrain.EXIT || Dungeon.level.map[cell] == Terrain.UNLOCKED_EXIT)
+                && Dungeon.depth < 41)) {//change from budding
             curAction = new HeroAction.Descend(cell);
 
-        } else if (cell == Dungeon.level.entrance || Dungeon.level.map[cell] == Terrain.ENTRANCE) {
-
+        } else if (!Dungeon.level.locked && (cell == Dungeon.level.entrance || Dungeon.level.map[cell] == Terrain.ENTRANCE)) {
             curAction = new HeroAction.Ascend(cell);
 
         } else {
@@ -2104,7 +2124,6 @@ public class Hero extends Char {
             } else {
                 walkingToVisibleTrapInFog = false;
             }
-
             curAction = new HeroAction.Move(cell);
             lastAction = null;
 
@@ -2408,10 +2427,10 @@ public class Hero extends Char {
     }
 
     @Override
-    public void move(int step) {
+    public void move(int step, boolean travelling) {
         boolean wasHighGrass = Dungeon.level.map[step] == Terrain.HIGH_GRASS;
 
-        super.move(step);
+        super.move(step,travelling);
 
         if (!flying) {
             if (Dungeon.level.water[pos]) {

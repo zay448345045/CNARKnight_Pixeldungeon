@@ -371,8 +371,8 @@ public class NewDM300 extends Mob {
     }
 
     @Override
-    public void move(int step) {
-        super.move(step);
+    public void move(int step,boolean travelling) {
+        super.move(step,travelling);
 
         Camera.main.shake(supercharged ? 3 : 1, 0.25f);
 
@@ -582,6 +582,7 @@ public class NewDM300 extends Mob {
 
             yell(Messages.get(this, "pylons_destroyed"));
             BossHealthBar.bleed(true);
+            ((NewCavesBossLevel) Dungeon.level).SetEffect();//change from budding
         }
     }
 

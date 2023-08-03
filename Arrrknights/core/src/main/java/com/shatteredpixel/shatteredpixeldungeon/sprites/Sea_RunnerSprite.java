@@ -31,19 +31,19 @@ public class Sea_RunnerSprite extends MobSprite {
 
         texture( Assets.Sprites.SEA_RUNNER );
 
-        TextureFilm frames = new TextureFilm( texture, 38, 26 );
+        TextureFilm frames = new TextureFilm( texture, 46, 28 );
 
         idle = new Animation( 10, true );
         idle.frames( frames, 0 );
 
         run = new Animation( 12, true );
-        run.frames( frames, 0 );
+        run.frames( frames, 1, 2, 3, 4, 5, 6 );
 
-        attack = new Animation( 15, false );
-        attack.frames( frames, 0 );
+        attack = new Animation( 12, false );
+        attack.frames( frames, 7, 8, 9, 10, 11, 12, 13 );
 
         die = new Animation( 10, false );
-        die.frames( frames, 0 );
+        die.frames( frames, 14, 15, 16, 17, 18, 19, 20, 21, 22 );
 
         play( idle );
     }

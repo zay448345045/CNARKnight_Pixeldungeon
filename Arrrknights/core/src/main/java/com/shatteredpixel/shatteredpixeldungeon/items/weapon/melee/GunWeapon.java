@@ -74,7 +74,7 @@ public class GunWeapon extends MeleeWeapon {
     }
 
     public int ShotDamageRoll() {
-        return Random.Int(shotmin(), shotmax());
+        return Random.IntRange(shotmin(), shotmax());//change from budding
     }
 
     protected float RELOAD_TIME = 3f;
@@ -338,7 +338,7 @@ public class GunWeapon extends MeleeWeapon {
                     if (Dungeon.hero.hasTalent(Talent.WATER_PLAY) && Random.Int(5) < Dungeon.hero.pointsInTalent(Talent.WATER_PLAY)) {
                         Buff.affect(ch, Blindness.class, 1f);
                     }
-
+                }//change from budding
                     if (Dungeon.hero.hasTalent(Talent.TAC_SHOT) && Dungeon.hero.buff(ChenShooterBuff.TACMove_tacshot.class) != null) {
                         int min = Dungeon.hero.pointsInTalent(Talent.TAC_SHOT) / 2;
                         int max = 1 + Dungeon.hero.pointsInTalent(Talent.TAC_SHOT) / 3;
@@ -349,7 +349,7 @@ public class GunWeapon extends MeleeWeapon {
 
                         Buff.detach(Dungeon.hero,ChenShooterBuff.TACMove_tacshot.class);
                     }
-                }
+                //}
             }
             else {
                 String defense = ch.defenseVerb();

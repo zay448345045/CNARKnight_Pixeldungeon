@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.custom.dict;
 
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WebParticle;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 import java.util.Collection;
@@ -39,16 +40,19 @@ public enum DictionaryJournal {
 
         //artifacts
         ARTIFACTS.d.put("artifact_toolkit",         ItemSpriteSheet.ARTIFACT_TOOLKIT);
+        ARTIFACTS.d.put("artifact_alchemy",          ItemSpriteSheet.ARTIFACT_THORNS);
         ARTIFACTS.d.put("artifact_chalice",         ItemSpriteSheet.ARTIFACT_CHALICE1);
         ARTIFACTS.d.put("artifact_cloak",           ItemSpriteSheet.ARTIFACT_CLOAK);
         ARTIFACTS.d.put("artifact_rose",            ItemSpriteSheet.ARTIFACT_ROSE1);
         ARTIFACTS.d.put("artifact_chain",           ItemSpriteSheet.ARTIFACT_CHAINS);
         ARTIFACTS.d.put("artifact_horn",            ItemSpriteSheet.ARTIFACT_HORN1);
+        ARTIFACTS.d.put("artifact_isekai",          ItemSpriteSheet.ARTIFACT_ASH);
         ARTIFACTS.d.put("artifact_sandal",          ItemSpriteSheet.ARTIFACT_SANDALS);
         ARTIFACTS.d.put("artifact_talisman",        ItemSpriteSheet.ARTIFACT_TALISMAN);
         ARTIFACTS.d.put("artifact_armband",         ItemSpriteSheet.ARTIFACT_ARMBAND);
         ARTIFACTS.d.put("artifact_hourglass",       ItemSpriteSheet.ARTIFACT_HOURGLASS);
         ARTIFACTS.d.put("artifact_book",            ItemSpriteSheet.ARTIFACT_SPELLBOOK);
+        ARTIFACTS.d.put("artifact_camera",          ItemSpriteSheet.ARTIFACT_CAMERA);
 
         //alchemy, so many...
         //bomb
@@ -236,17 +240,33 @@ public enum DictionaryJournal {
         RINGS.d.put("ring_wealth",          ItemSpriteSheet.RING_QUARTZ);
         //wand
         WANDS.d.put("wand_blastwave",       ItemSpriteSheet.WAND_BLAST_WAVE);
+        WANDS.d.put("wand_weedy",           ItemSpriteSheet.WAND_BLAST_WAVE);
         WANDS.d.put("wand_corrosion",       ItemSpriteSheet.WAND_CORROSION);
         WANDS.d.put("wand_corruption",      ItemSpriteSheet.WAND_CORRUPTION);
+        WANDS.d.put("wand_oo",              ItemSpriteSheet.WAND_CORRUPTION);
         WANDS.d.put("wand_beam",            ItemSpriteSheet.WAND_DISINTEGRATION);
+        WANDS.d.put("wand_vigna",           ItemSpriteSheet.WAND_DISINTEGRATION);
         WANDS.d.put("wand_fireblast",       ItemSpriteSheet.WAND_FIREBOLT);
+        WANDS.d.put("wand_skyfire",         ItemSpriteSheet.WAND_FIREBOLT);
         WANDS.d.put("wand_frost",           ItemSpriteSheet.WAND_FROST);
+        WANDS.d.put("wand_leaf",            ItemSpriteSheet.WAND_FROST);
+        WANDS.d.put("wand_hall",            ItemSpriteSheet.WAND_PODENCO);
+        WANDS.d.put("wand_podenco",         ItemSpriteSheet.WAND_PODENCO);
+        WANDS.d.put("wand_heal",            ItemSpriteSheet.WAND_SUSSURRO);
+        WANDS.d.put("wand_susulo",          ItemSpriteSheet.WAND_SUSSURRO);
         WANDS.d.put("wand_lightning",       ItemSpriteSheet.WAND_LIGHTNING);
+        WANDS.d.put("wand_grey",            ItemSpriteSheet.WAND_LIGHTNING);
         WANDS.d.put("wand_soil",            ItemSpriteSheet.WAND_LIVING_EARTH);
         WANDS.d.put("wand_magicmissile",    ItemSpriteSheet.WAND_MAGIC_MISSILE);
+        WANDS.d.put("wand_absinthe",        ItemSpriteSheet.WAND_MAGIC_MISSILE);
         WANDS.d.put("wand_light",           ItemSpriteSheet.WAND_PRISMATIC_LIGHT);
+        WANDS.d.put("wand_shining",         ItemSpriteSheet.WAND_PRISMATIC_LIGHT);
         WANDS.d.put("wand_grass",           ItemSpriteSheet.WAND_REGROWTH);
+        WANDS.d.put("wand_lena",            ItemSpriteSheet.WAND_REGROWTH);
+        WANDS.d.put("wand_silence",         ItemSpriteSheet.WAND_SNOWSANT);
+        WANDS.d.put("wand_snowsant",        ItemSpriteSheet.WAND_SNOWSANT);
         WANDS.d.put("wand_transfusion",     ItemSpriteSheet.WAND_TRANSFUSION);
+        WANDS.d.put("wand_angelina",        ItemSpriteSheet.WAND_TRANSFUSION);
         WANDS.d.put("wand_warding",         ItemSpriteSheet.WAND_WARDING);
         //weapon, melee
         WEAPONS.d.put("melee_wornsword",    ItemSpriteSheet.WORN_SHORTSWORD);
@@ -264,6 +284,7 @@ public enum DictionaryJournal {
         WEAPONS.d.put("melee_dirk",         ItemSpriteSheet.DIRK);
         WEAPONS.d.put("melee_enfild",       ItemSpriteSheet.ENFILD);
         WEAPONS.d.put("melee_midnightsword",ItemSpriteSheet.MIDSWORD);
+        WEAPONS.d.put("melee_firmament",    ItemSpriteSheet.FIRMAMENT);
 
         WEAPONS.d.put("melee_sword",        ItemSpriteSheet.SWORD);
         WEAPONS.d.put("melee_mace",         ItemSpriteSheet.MACE);
@@ -288,7 +309,13 @@ public enum DictionaryJournal {
         WEAPONS.d.put("melee_flail",        ItemSpriteSheet.FLAIL);
         WEAPONS.d.put("melee_flametail",    ItemSpriteSheet.FLAMETAIL);
         WEAPONS.d.put("melee_folksong",     ItemSpriteSheet.SPECTER);
-        WEAPONS.d.put("melee_kazemaru",     ItemSpriteSheet.POMBBAY);
+        WEAPONS.d.put("melee_kazemaru",     ItemSpriteSheet.KAZEMARU);
+        WEAPONS.d.put("melee_m1887",        ItemSpriteSheet.M1887);
+        WEAPONS.d.put("melee_metallicunion",ItemSpriteSheet.PANDA);
+        WEAPONS.d.put("melee_naginata",     ItemSpriteSheet.NAGINATA);
+        WEAPONS.d.put("melee_scythe",       ItemSpriteSheet.SICKEL);
+        WEAPONS.d.put("melee_snowhunter",   ItemSpriteSheet.CLIFF);
+        WEAPONS.d.put("melee_journalist",   ItemSpriteSheet.SCENE);
         WEAPONS.d.put("melee_gluttony",     ItemSpriteSheet.CARNEL);
         WEAPONS.d.put("melee_golddogsword", ItemSpriteSheet.GOLDDOG);
 
@@ -301,10 +328,20 @@ public enum DictionaryJournal {
         WEAPONS.d.put("melee_divineavatar", ItemSpriteSheet.BABY_KNIGHT);
         WEAPONS.d.put("melee_echeveria",    ItemSpriteSheet.ECHEVERIA);
         WEAPONS.d.put("melee_krissvector",  ItemSpriteSheet.KRISS_V);
+        WEAPONS.d.put("melee_lonejourney",  ItemSpriteSheet.LONE);
+        WEAPONS.d.put("melee_r4c",          ItemSpriteSheet.R4C);
+        WEAPONS.d.put("melee_radiantspear", ItemSpriteSheet.NEARL_SPEAR);
+        WEAPONS.d.put("melee_suffering",    ItemSpriteSheet.FLAMMETTA);
+        WEAPONS.d.put("melee_swordofa",     ItemSpriteSheet.ARTORIUS);
         WEAPONS.d.put("melee_catgun",       ItemSpriteSheet.CATGUN);
         WEAPONS.d.put("melee_imageoverform",ItemSpriteSheet.DUSK);
+        WEAPONS.d.put("melee_minosfury",    ItemSpriteSheet.VULCAN);
+        WEAPONS.d.put("melee_niansword",    ItemSpriteSheet.NIANSWORD);
+        WEAPONS.d.put("melee_patriotspear", ItemSpriteSheet.REQUIEM);
         WEAPONS.d.put("melee_kollamsword",  ItemSpriteSheet.DONKEY_SWORD);
+        WEAPONS.d.put("melee_sakura",       ItemSpriteSheet.SAKURA_FUBUKI);
 
+        WEAPONS.d.put("melee_pickaxe",      ItemSpriteSheet.PICKAXE);
         //ench & curse
         WEAPONS.d.put("weapon_ench1",       ItemSpriteSheet.STONE_ENCHANT);
         WEAPONS.d.put("weapon_ench2",       ItemSpriteSheet.STONE_ENCHANT);
@@ -315,15 +352,22 @@ public enum DictionaryJournal {
         WEAPONS.d.put("missile_darttipped", ItemSpriteSheet.PARALYTIC_DART);
         WEAPONS.d.put("missile_stone",      ItemSpriteSheet.THROWING_STONE);
         WEAPONS.d.put("missile_knife",      ItemSpriteSheet.THROWING_KNIFE);
+        WEAPONS.d.put("missile_light",      ItemSpriteSheet.HOLY_KNIFE);
+        WEAPONS.d.put("missile_firesteel",  ItemSpriteSheet.FLINT);
+        WEAPONS.d.put("missile_purgatory",  ItemSpriteSheet.LAVA);
         WEAPONS.d.put("missile_fishing",    ItemSpriteSheet.FISHING_SPEAR);
         WEAPONS.d.put("missile_shuriken",   ItemSpriteSheet.SHURIKEN);
         WEAPONS.d.put("missile_club",       ItemSpriteSheet.THROWING_CLUB);
         WEAPONS.d.put("missile_spear",      ItemSpriteSheet.THROWING_SPEAR);
         WEAPONS.d.put("missile_kunai",      ItemSpriteSheet.KUNAI);
         WEAPONS.d.put("missile_bolas",      ItemSpriteSheet.BOLAS);
+        WEAPONS.d.put("missile_rage",       ItemSpriteSheet.THROWING_STONE);
+        WEAPONS.d.put("missile_mag",        ItemSpriteSheet.AMMO1);
+        WEAPONS.d.put("missile_thunder",    ItemSpriteSheet.LISKARM_DOLL);
         WEAPONS.d.put("missile_javelin",    ItemSpriteSheet.JAVELIN);
         WEAPONS.d.put("missile_boomerang",  ItemSpriteSheet.BOOMERANG);
         WEAPONS.d.put("missile_axe",        ItemSpriteSheet.TOMAHAWK);
+        WEAPONS.d.put("missile_spmag",      ItemSpriteSheet.AMMO2);
         WEAPONS.d.put("missile_hammer",     ItemSpriteSheet.THROWING_HAMMER);
         WEAPONS.d.put("missile_trident",    ItemSpriteSheet.TRIDENT);
         WEAPONS.d.put("missile_cube",       ItemSpriteSheet.FORCE_CUBE);

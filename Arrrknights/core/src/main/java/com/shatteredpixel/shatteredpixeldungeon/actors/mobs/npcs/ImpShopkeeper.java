@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CannotSprite;
@@ -48,7 +49,7 @@ public class ImpShopkeeper extends Shopkeeper {
 			yell( Messages.get(this, "greetings", Dungeon.hero.heroClass.title() ) );
 			seenBefore = true;
 		}
-		
+		Notes.add(Notes.Landmark.IMP);//change from budding
 		return super.act();
 	}
 

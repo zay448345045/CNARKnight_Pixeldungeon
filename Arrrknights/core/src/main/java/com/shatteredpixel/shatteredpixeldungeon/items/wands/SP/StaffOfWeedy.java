@@ -80,7 +80,7 @@ public class StaffOfWeedy extends DamageWand {
 
                 if (ch.isAlive() && ch.pos == bolt.collisionPos + i && ch != curUser)  {
                     Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
-                    int strength = 1 + Math.round(buffedLvl() / 2f) + Math.round(curCharges / 4);
+                    int strength = 1 + Math.round(buffedLvl() / 2f) + Math.round(curCharges / 4f);
                     throwChar(ch, trajectory, strength, false);
                 }
             }

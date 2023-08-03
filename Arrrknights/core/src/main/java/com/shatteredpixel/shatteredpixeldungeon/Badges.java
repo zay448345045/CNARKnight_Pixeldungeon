@@ -43,10 +43,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.TEST;
+
 public class Badges {
 
 	public static boolean Destoryd = false;
-	public static boolean is_not_test = !(Dungeon.isChallenged(Challenges.TEST));
 	public enum Badge {
 		MASTERY_WARRIOR,
 		MASTERY_MAGE,
@@ -1211,14 +1212,14 @@ public class Badges {
 
 	//necessary in order to display the happy end badge in the surface scene
 	public static void silentValidateHappyEnd() {
-		if (!local.contains( Badge.HAPPY_END ) && is_not_test){//change from budding
+		if (!local.contains( Badge.HAPPY_END ) && !Dungeon.isChallenged(TEST)){//change from budding
 			local.add( Badge.HAPPY_END );
 		}
 	}
 
 	//하극상 배지용
 	public static void silentValidateFragging() {
-		if (!local.contains( Badge.FRAGGING ) && is_not_test){//change from budding
+		if (!local.contains( Badge.FRAGGING ) && !Dungeon.isChallenged(TEST)){//change from budding
 			local.add( Badge.FRAGGING );
 		}
 	}
@@ -1439,7 +1440,7 @@ public class Badges {
 
 	private static void displayBadge( Badge badge ) {
 		
-		if (badge == null || !Dungeon.customSeedText.isEmpty() || !is_not_test) {
+		if (badge == null || !Dungeon.customSeedText.isEmpty() || Dungeon.isChallenged(TEST)) {
 			return;
 		}
 		
@@ -1477,7 +1478,7 @@ public class Badges {
 	}
 	
 	public static void unlock( Badge badge ){
-		if (!isUnlocked(badge) && Dungeon.customSeedText.isEmpty() && is_not_test){
+		if (!isUnlocked(badge) && Dungeon.customSeedText.isEmpty() && !Dungeon.isChallenged(TEST)){
 			global.add( badge );
 			saveNeeded = true;
 		}

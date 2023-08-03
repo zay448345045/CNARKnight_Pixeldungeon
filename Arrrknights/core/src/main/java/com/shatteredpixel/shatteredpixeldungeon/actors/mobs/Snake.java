@@ -78,13 +78,22 @@ public class Snake extends Mob {
 		}
 		return super.defenseVerb();
 	}
-
+@Override
+public int defenseSkill(Char src){//change from budding
+	if (Dungeon.isChallenged(Challenges.TACTICAL_UPGRADE)){
+		if ((enemySeen && state != SLEEPING && paralysed == 0)
+				&& (src instanceof Char && enemy == src)&& enemy.invisible == 0) {
+			return INFINITE_EVASION;
+		}
+	}
+	return super.defenseSkill( src );
+}
 	@Override
 	public void damage( int dmg, Object src ) {
 		if (Dungeon.isChallenged(Challenges.TACTICAL_UPGRADE)) {
 			if ((enemySeen && state != SLEEPING && paralysed == 0)
 					&& ((src instanceof Wand && enemy == Dungeon.hero)
-					|| (src instanceof Char && enemy == src))) {
+					|| (src instanceof Char && enemy == src))&& enemy.invisible == 0) {//change from budding
 				GLog.n(Messages.get(this, "noticed"));
 			} else {
 				super.damage(dmg, src);

@@ -104,7 +104,7 @@ public class SiestaBoss extends Mob {
     }
 
     @Override
-    public void move(int step) {
+    public void move(int step,boolean travelling) {
         return;
     }
 

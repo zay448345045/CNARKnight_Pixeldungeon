@@ -81,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarJournalist
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
@@ -1193,7 +1194,19 @@ public abstract class Mob extends Char {
 				}
 			}
 		}
-
+		if (Dungeon.depth > 35 && Dungeon.extrastage_Sea && Dungeon.level.map[this.pos] == Terrain.EMPTY_SP) {//change from budding
+			int evaporatedTiles;
+			evaporatedTiles = Random.chances(new float[]{0, 0, 0, 0, 0, 1, 2, 1, 1});
+			for (int i = 0; i < evaporatedTiles; i++) {
+				if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
+					Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.EMPTY_SP);//change from budding
+					//Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.EMPTY_SP;
+					GameScene.updateMap( pos+PathFinder.NEIGHBOURS8[i] );
+					CellEmitter.get(pos+PathFinder.NEIGHBOURS8[i]).burst(Speck.factory(Speck.BUBBLE), 10);
+					Dungeon.observe();
+				}
+			}
+		}
 		super.spend(time);
 	}
 
@@ -1287,7 +1300,12 @@ public abstract class Mob extends Char {
 				} else {
 					ally.pos = pos;
 				}
-				
+				if (ally.sprite != null) ally.sprite.place(ally.pos);//change from budding,shattered
+
+				if (ally.fieldOfView == null || ally.fieldOfView.length != level.length()){
+					ally.fieldOfView = new boolean[level.length()];
+				}
+				Dungeon.level.updateFieldOfView( ally, ally.fieldOfView );
 			}
 		}
 		heldAllies.clear();

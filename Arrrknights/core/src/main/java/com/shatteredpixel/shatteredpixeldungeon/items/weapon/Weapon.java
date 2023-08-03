@@ -131,14 +131,20 @@ abstract public class Weapon extends KindOfWeapon {
 	public int proc( Char attacker, Char defender, int damage ) {
 
 		if (attacker instanceof Hero) {
-		if (Dungeon.hero.belongings.ring instanceof RingOfDominate)
+		if (Dungeon.hero.belongings.ring instanceof RingOfDominate || Dungeon.hero.belongings.misc instanceof  RingOfDominate)//change from budding
 		{
 			float enemyResist = 1;
 			enemyResist *= 1 + 2*Math.pow(defender.HP/(float)defender.HT, 2);
 
-			float Resists = 100 * enemyResist;
-
-			if (Random.Int((int)Resists) < RingOfDominate.Dominate(Dungeon.hero)) {
+			float Resists = 100 * enemyResist, dd=RingOfDominate.Dominate(Dungeon.hero);
+			int rr=Random.Int((int)Resists);
+			/*GLog.h("Random:");
+			GLog.h(String.valueOf(rr));
+			GLog.w("Resists");
+			GLog.w(String.valueOf((int)Resists));
+			GLog.p("Dominate:");
+			GLog.p(String.valueOf(dd));*/
+			if (rr < dd) {
 				if (defender.isAlive() && !defender.isImmune(Corruption.class) && defender.buff(Corruption.class) == null && defender.alignment != Char.Alignment.ALLY) {
 					Buff.affect(defender, Corruption.class);
 					defender.HP = defender.HT;

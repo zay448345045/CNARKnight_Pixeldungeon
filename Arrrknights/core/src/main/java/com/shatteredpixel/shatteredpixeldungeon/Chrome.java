@@ -28,6 +28,7 @@ public class Chrome {
 	public enum  Type {
 		TOAST,
 		TOAST_TR,
+		TOAST_WHITE,
 		WINDOW,
 		WINDOW_SILVER,
 		RED_BUTTON,
@@ -38,7 +39,8 @@ public class Chrome {
 		SCROLL,
 		TAB_SET,
 		TAB_SELECTED,
-		TAB_UNSELECTED
+		TAB_UNSELECTED,
+		BLANK
 	}
 	
 	public static NinePatch get( Type type ) {
@@ -53,6 +55,8 @@ public class Chrome {
 		case TOAST_TR:
 		case GREY_BUTTON_TR:
 			return new NinePatch( Asset, 20, 9, 9, 9, 4 );
+		case TOAST_WHITE:
+			return new NinePatch( Asset, 29, 0, 9, 9, 4 );
 		case RED_BUTTON:
 			return new NinePatch( Asset, 29, 0, 6, 6, 2 );
 		case GREY_BUTTON:
@@ -69,6 +73,8 @@ public class Chrome {
 			return new NinePatch( Asset, 65, 22, 8, 13, 3, 7, 3, 5 );
 		case TAB_UNSELECTED:
 			return new NinePatch( Asset, 75, 22, 8, 13, 3, 7, 3, 5 );
+		case BLANK:
+			return new NinePatch( Asset, 45, 0, 1, 1, 0, 0, 0, 0 );
 		default:
 			return null;
 		}

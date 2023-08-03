@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Transmuting;
 import com.shatteredpixel.shatteredpixeldungeon.items.AnnihilationGear;
+import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -59,7 +60,7 @@ public class ChaosCatalyst extends InventorySpell{
             result = upGear((AnnihilationGear)item);
         }
         else {
-            result = null;
+            result = upOther(item);
         }
         if (result == null){
             //This shouldn't ever trigger
@@ -67,9 +68,12 @@ public class ChaosCatalyst extends InventorySpell{
             curItem.collect( curUser.belongings.backpack );
         } else {
             if (item.isEquipped(Dungeon.hero)) {
+                boolean record_curse=item.cursed;//TODO new instance instead of record curse
                 item.cursed = false; //to allow it to be unequipped
                 ((EquipableItem) item).doUnequip(Dungeon.hero, false);
+                result.cursed=record_curse;
                 ((EquipableItem) result).doEquip(Dungeon.hero);
+                Dungeon.hero.spend(-Dungeon.hero.cooldown());
             } else {
                 item.detach(Dungeon.hero.belongings.backpack);
                 if (!result.collect()) {
@@ -78,7 +82,7 @@ public class ChaosCatalyst extends InventorySpell{
             }
         //item.level(1);
         Sample.INSTANCE.play(Assets.Sounds.EVOKE);
-        Dungeon.hero.spendAndNext(1f);
+        //Dungeon.hero.spendAndNext(1f);
         updateQuickslot();
         }
     }
@@ -106,7 +110,12 @@ public class ChaosCatalyst extends InventorySpell{
         return w;
     }
     private  Armor upArmor(Armor w){
-        Armor n= (Armor) Generator.random( Generator.Category.ARMOR );
+        Armor n= new Armor(w.tier);
+        boolean seal_exist=(w.checkSeal() != null);
+        int b_level=0;
+        if (seal_exist){
+                b_level=w.checkSeal().level();
+            }
         n.glyph = w.glyph;
         n.curseInfusionBonus = w.curseInfusionBonus;
         n.levelKnown = w.levelKnown;
@@ -126,10 +135,12 @@ public class ChaosCatalyst extends InventorySpell{
         w.cursedKnown = n.cursedKnown;
         w.cursed = n.cursed;
         w.augment = n.augment;
+        if (seal_exist)
+        w.checkSeal().level(b_level);
         return w;
     }
     private Ring upRing(Ring w){
-        Ring n= (Ring) Generator.random( Generator.Category.RING );
+        Ring n= new Ring();
         n.levelKnown = w.levelKnown;
         n.cursedKnown = w.cursedKnown;
         n.cursed = w.cursed;
@@ -165,7 +176,7 @@ public class ChaosCatalyst extends InventorySpell{
         return w;
     }
     private  AnnihilationGear upGear(AnnihilationGear w){
-        AnnihilationGear n=null;
+        AnnihilationGear n= new AnnihilationGear();
         n.arts = w.arts;
         //n.curseInfusionBonus = w.curseInfusionBonus;
         n.levelKnown = w.levelKnown;
@@ -180,6 +191,23 @@ public class ChaosCatalyst extends InventorySpell{
         }
         w.arts = n.arts;
         //w.curseInfusionBonus = n.curseInfusionBonus;
+        w.levelKnown = n.levelKnown;
+        w.cursedKnown = n.cursedKnown;
+        w.cursed = n.cursed;
+        return w;
+    }
+    private Item upOther(Item w){
+        Item n =new Item();
+        n.levelKnown = w.levelKnown;
+        n.cursedKnown = w.cursedKnown;
+        n.cursed = w.cursed;
+        int deal=1-w.level();
+        if (deal>0) {
+            w.upgrade(deal);
+        }
+        else if (deal<0){
+            w.degrade(-deal);
+        }
         w.levelKnown = n.levelKnown;
         w.cursedKnown = n.cursedKnown;
         w.cursed = n.cursed;

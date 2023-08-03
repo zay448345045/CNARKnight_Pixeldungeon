@@ -44,6 +44,8 @@ public class Assets {
 		public static final String TILSE_RHODES	= "environment/tiles_rhodos.png";
 		public static final String TILSE_SIESTA	= "environment/tiles_siesta.png";
 		public static final String TILSE_SIESTA2	= "environment/tiles_siesta2.png";
+		public static final String TILSE_IBERIA	= "environment/tiles_iberia.png";
+		public static final String TILSE_IBERIA2	= "environment/tiles_iberia2.png";
 		public static final String TILSE_SARGON	= "environment/tiles_sargon.png";
 
 		public static final String WATER_SEWERS	= "environment/water0.png";
@@ -53,6 +55,8 @@ public class Assets {
 		public static final String WATER_HALLS	= "environment/water4.png";
 		public static final String WATER_SIESTA	= "environment/water5.png";
 		public static final String WATER_SIESTA2	= "environment/water6.png";
+		public static final String WATER_IBERIA	= "environment/water7.png";
+		public static final String WATER_IBERIA2	= "environment/water7.png";
 
 		public static final String WEAK_FLOOR       = "environment/custom_tiles/weak_floor.png";
 		public static final String SEWER_BOSS       = "environment/custom_tiles/sewer_boss.png";
@@ -123,6 +127,7 @@ public class Assets {
 		public static final String SCENES   = "messages/scenes/scenes";
 		public static final String UI       = "messages/ui/ui";
 		public static final String WINDOWS  = "messages/windows/windows";
+		public static final String CUSTOM   = "messages/custom/custom";
 	}
 
 	public static class Music {
@@ -145,6 +150,8 @@ public class Assets {
 		public static final String BOSS6_SIESTA2		= "music/boss_siesta2.ogg";
 		public static final String BOSS6_SARGON		= "music/boss_sargon1.ogg";
 		public static final String BOSS6_SARGON2		= "music/boss_sargon2.ogg";
+		public static final String GAME6_IBERIA1		= "music/game_iberia1.ogg";
+		public static final String GAME6_IBERIA2		= "music/game_iberia2.ogg";
 		public static final String SURFACE	= "music/surface.ogg";
 		public static final String THEME	= "music/theme.ogg";
 		public static final String RHODOS	= "music/rhodos.ogg";
@@ -170,6 +177,7 @@ public class Assets {
 		public static final String HIT		        = "sounds/hit.mp3";
 		public static final String MISS		        = "sounds/miss.mp3";
 		public static final String HIT_SLASH        = "sounds/hit_slash.mp3";
+		public static final String HIT_SLASH2 = "sounds/hit_slash2.mp3";
 		public static final String HIT_PUNCH        = "sounds/hit_punch.mp3";
 		public static final String HIT_SPEAR        = "sounds/hit_spear.mp3";
 
@@ -281,7 +289,7 @@ public class Assets {
 
 				OPEN, UNLOCK, ITEM, DEWDROP, STEP, WATER, GRASS, TRAMPLE, STURDY,
 
-				HIT_PUNCH, HIT_SPEAR, HIT, MISS, HIT_SLASH, HIT_STAB, HIT_CRUSH, HIT_MAGIC, HIT_STRONG, HIT_PARRY, HIT_SWORD, HIT_SWORD2, HIT_DUALSTRIKE,
+				HIT_PUNCH, HIT_SPEAR, HIT, MISS, HIT_SLASH,HIT_SLASH2, HIT_STAB, HIT_CRUSH, HIT_MAGIC, HIT_STRONG, HIT_PARRY, HIT_SWORD, HIT_SWORD2, HIT_DUALSTRIKE,
 				HIT_ARROW, HIT_WHIP, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL, HIT_RINGOUT, HIT_BREAK, HIT_BONK, HIT_SPLASH, HIT_DUSK, HIT_REVOLVER,
 
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, ZAP_GUN, LIGHTNING, LEVELUP, DEATH,
@@ -451,20 +459,19 @@ public class Assets {
 		public static final String PILLAR	= "sprites/pillar.png";
 		public static final String BIG_UGLY	= "sprites/big_ugly.png";
 		public static final String JUMAMA	= "sprites/jumama.png";
-		public static final String HELP_LANCET	= "sprites/lancet.png";
 
+		public static final String HELP_LANCET	= "sprites/lancet.png";
 		//이베리아-에기르
 		public static final String SEA_DRIFTER	= "sprites/sea_drifter.png";
 		public static final String SEA_RUNNER	= "sprites/sea_runner.png";
 		public static final String SEA_REAPER	= "sprites/sea_reaper.png";
+		public static final String SEA_CRAWLER = "sprites/sea_crawler.png";
 		public static final String FIRST_TALK	= "sprites/first_talk.png";
-
+		public static final String BELFLY = "sprites/belfry.png";
 		public static final String SEA_SPEWER	= "sprites/sea_spewer.png";
 		public static final String SEA_PREDATOR	= "sprites/sea_predator.png";
 		public static final String SEA_BRANDGUIDER	= "sprites/sea_brandguider.png";
-
-
-
+		public static final String SEA_LEEF = "sprites/sea_reef.png";
 
 		//명픽던에서만 추가된 것들↓
 		public static final String KALTSIT	= "sprites/kaltsit.png";
@@ -485,7 +492,7 @@ public class Assets {
 		public static final String NPC_ASTESIA	= "sprites/astesia_npc.png";
 		public static final String NPC_GAVIAL	= "sprites/gavial.png";
 		public static final String NPC_PINK	= "sprites/pink_doggi.png";
-		public static final String NPC_IRENE	= "sprites/npc_irene.png";
+		public static final String NPC_IRENE = "sprites/npc_irene.png";
 		public static final String TEXAS_SHOPKEEPER	= "sprites/texas_shopkeeper.png";
 
 		public static final String SARKAZ_SENTINEL	= "sprites/Sarkaz_Sentinel.png";
@@ -496,7 +503,7 @@ public class Assets {
 
 		public static final String LENS	= "sprites/lens.png";
 		public static final String ROCK_CRAB	= "sprites/rock_crab.png";
-		public static final String SEABORN	= "sprites/seaborn.png";
+		public static final String SEABORN	= "sprites/Seaborn.png";
 		public static final String MON3TER	= "sprites/mon3ter.png";
 		public static final String ZUZAI	= "sprites/zuzai.png";
 

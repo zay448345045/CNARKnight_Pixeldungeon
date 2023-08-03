@@ -225,7 +225,7 @@ public class CursedWand {
 
 			//Bomb explosion
 			case 2:
-				new Bomb().explode(targetPos);
+				new Bomb().explode(targetPos,false);//change from budding
 				return true;
 
 			//shock and recharge

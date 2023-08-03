@@ -55,6 +55,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.TEST;
+
 public enum Rankings {
 	
 	INSTANCE;
@@ -78,6 +80,9 @@ public enum Rankings {
 
 	public void submit( boolean win, Class cause ) {
 
+		if(Dungeon.isChallenged(Challenges.TEST)){
+			return;
+		}
 		load();
 		
 		Record rec = new Record();
@@ -155,7 +160,7 @@ public enum Rankings {
 	}
 
 	private int score( boolean win ) {
-		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? 26 : Dungeon.depth ) * 100) * (win ? 2 : 1);
+		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? 26 : Statistics.deepestFloor ) * 100) * (win ? 2 : 1)*(Dungeon.isChallenged(TEST)?-1:1);
 	}
 
 	public static final String HERO = "hero";
@@ -481,7 +486,7 @@ public enum Rankings {
 		}
 	}
 
-	private static final Comparator<Record> scoreComparator = new Comparator<Rankings.Record>() {
+	public static final Comparator<Record> scoreComparator = new Comparator<Rankings.Record>() {
 		@Override
 		public int compare( Record lhs, Record rhs ) {
 			//this covers custom seeded runs and dailies

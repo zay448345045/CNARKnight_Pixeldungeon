@@ -28,53 +28,49 @@ public class v0_4_X_Changes {
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.BUG_KILL), "버전 공지",
-                "현 버전은 작업시간 부족과 작업 지연등으로 선행 배포하게 된 미완성 버전입니다." + "\n\n" +
-                        "미완성 부분은 여유가 된다면 빠른 시일 내에 작업완료할 예정이며, 기타 버그들은 설문조사를 통해 제보해주시면 감사하겠습니다."));
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHEN_S), "新角色",
+                "新增角色陈。通关一次游戏可以解锁陈。（选择干员界面左上角按钮切换至第二页）"));
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.CHEN_S), "신규 캐릭터",
-                "신규 캐릭터 첸이 추가되었습니다. 첸은 플레이어 선택 화면 좌측 상단의 버튼으로 선택할 수 있으며, 게임을 1회 클리어하여 해금할 수 있습니다."));
-
-        changes.addButton(new ChangeButton(Icons.get(Icons.BACKPACK), "새로운 아이템 추가",
-                "_절지생화_ 4티어 무기로, 공격시 확률적으로 분신을 소환해 추가 공격을 가합니다. (미완성)"));
+        changes.addButton(new ChangeButton(Icons.get(Icons.BACKPACK), "新增武器",
+                "_折纸生花_ 4阶武器, 攻击时有几率召唤分身进行追加攻击。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(CharSprite.WARNING);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.TARGET), "아이템 & 특성 효과 변경",
-                "아미야의 _아츠 저격_이나 _천구_ 유물 등으로 적의 위장을 제거할 수 있도록 변경되었습니다."));
+        changes.addButton(new ChangeButton(Icons.get(Icons.TARGET), "更改物品&天赋效果",
+                "阿米娅的_奥术感知_或_天球仪_的主动探查可以移除敌人的隐匿。"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight(CharSprite.POSITIVE);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.AMIYA), "지배 아미야 상향",
-                "_지배력 강화_ 특성의 발동 확률이 상승했습니다. (기존 대비 약 42%)"));
+        changes.addButton(new ChangeButton(Icons.get(Icons.AMIYA), "支配阿米娅增强",
+                "_支配强化_ 触发概率提升。 (大约提升 42%)"));
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.GREY), "그레이스롯 상향",
-                "그레이스롯의 쇠뇌가 50%확률로 적의 위장을 무시합니다."));
+        changes.addButton(new ChangeButton(Icons.get(Icons.GREY), "灰喉增强",
+                "反拉弩的攻击有50%几率无视敌人的隐匿效果。"));
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.NEARL), "니어 상향",
+        changes.addButton(new ChangeButton(Icons.get(Icons.NEARL), "临光增强",
                 "_참전_의 신속 획득량이 1-3턴에서 _2-4턴_으로 상승했습니다." + "\n\n" +
                 "_축복받은 용사_의 축복 획득량이 10-40턴에서 _15-45턴_으로 상승했습니다."));
 
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.ENEMY_BUFFS), "적 상향",
-                "_탈룰라?_가 체력이 낮을수록 더욱 강력한 환영을 소환하게됩니다."));
+        changes.addButton(new ChangeButton(Icons.get(Icons.ENEMY_BUFFS), "塔露拉增强",
+                "_塔露拉?_体力越低召唤的幻象越强大。"));
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.WEP), "무기 상향",
-                "_철의 육합_의 명중률 보정이 -10%에서 _-5%_로 상승했습니다." + "\n\n"+
-                "_히라의 사냥꾼_의 사거리 보너스가 3에서 _4_로 상승했습니다." + "\n\n" +
-                "_광휘의 창_의 취약 대상 피해 보너스가 상승했습니다."));
+        changes.addButton(new ChangeButton(Icons.get(Icons.WEP), "武器增强",
+                "_铁意六合_命中修正从-10%改为_-5%_。" + "\n\n"+
+                "_凛冬猎人_额外攻击范围从3提升到_4_。" + "\n\n" +
+                "_光辉之窗_协同对易伤敌人的额外伤害增加"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(CharSprite.NEGATIVE);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.ENEMY_NERFS), "적 하향",
-                "_기술 정찰병_의 체력이 24에서 _20_으로 감소했습니다. 자신이 소환한 폭탄새에게 절반의 피해를 받도록 변경되었습니다." +" \n\n" +
-                "_티아카우 계열 적_들이 _연소_에 2배의 피해를 받도록 변경되었습니다."));
+        changes.addButton(new ChangeButton(Icons.get(Icons.ENEMY_NERFS), "敌人削弱",
+                "_技术侦查兵_生命上限由24降至_20_。" +" \n\n" +
+                "_提亚卡乌系列敌人_受到_燃烧_伤害变为2倍。"));
 
     }
 

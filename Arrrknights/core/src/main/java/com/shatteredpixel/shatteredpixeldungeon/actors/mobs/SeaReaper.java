@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.NervousImpairment;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.Bug_ASprite;
@@ -66,11 +67,11 @@ public class SeaReaper extends Mob{
         if (awaked) {
             for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
                 Char ch = findChar( pos + PathFinder.NEIGHBOURS8[i] );
-                if (ch != null && ch.isAlive() && ch instanceof Hero) {
-                    if (enemy.buff(NervousImpairment.class) == null) {
-                        Buff.affect(enemy, NervousImpairment.class);
+                if (ch != null && ch.isAlive() && (ch instanceof Hero || ch instanceof DriedRose.GhostHero)) {
+                    if (ch.buff(NervousImpairment.class) == null) {//change from budding
+                        Buff.affect(ch, NervousImpairment.class);
                     }
-                    enemy.buff(NervousImpairment.class).Sum(10);
+                    else ch.buff(NervousImpairment.class).Sum(10);
                 }
             }
         }

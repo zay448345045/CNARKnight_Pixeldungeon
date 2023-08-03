@@ -84,10 +84,11 @@ public class Necromancer extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (src == mySkeleton) {
-			if (Dungeon.isChallenged(Challenges.TACTICAL_UPGRADE)) dmg = 0;
-			else dmg /= 2;
-		}
+		if (src == mySkeleton)
+			if (Dungeon.isChallenged(Challenges.TACTICAL_UPGRADE))
+			dmg = 0;
+			else
+				dmg /=2;
 		super.damage(dmg, src);
 	}
 
@@ -149,7 +150,9 @@ public class Necromancer extends Mob {
 		}
 		if (mySkeleton != null){
 			bundle.put( MY_SKELETON, mySkeleton.id() );
-		}
+		} else if (storedSkeletonID != -1){
+			bundle.put( MY_SKELETON, storedSkeletonID );
+		}//change from budding,shattered
 	}
 	
 	@Override
@@ -188,7 +191,11 @@ public class Necromancer extends Mob {
 		@Override
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
 			enemySeen = enemyInFOV;
-			
+
+			if (enemySeen){
+				target = enemy.pos;
+			}//change from budding,shattered
+
 			if (storedSkeletonID != -1){
 				Actor ch = Actor.findById(storedSkeletonID);
 				storedSkeletonID = -1;
@@ -285,7 +292,7 @@ public class Necromancer extends Mob {
 			//otherwise, if enemy is seen, and we have a skeleton...
 			} else if (enemySeen && mySkeleton != null){
 				
-				target = enemy.pos;
+				//target = enemy.pos;//change from budding,shattered
 				spend(TICK);
 				
 				if (!fieldOfView[mySkeleton.pos]){

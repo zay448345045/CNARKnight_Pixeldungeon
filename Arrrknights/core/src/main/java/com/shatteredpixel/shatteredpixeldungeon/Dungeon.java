@@ -50,6 +50,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.QuestCat;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.SP.StaffOfMayer;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
@@ -74,6 +77,8 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel3;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel4;
+import com.shatteredpixel.shatteredpixeldungeon.levels.SeaLevel_part1;
+import com.shatteredpixel.shatteredpixeldungeon.levels.SeaLevel_part2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SiestaBossLevel_part1;
@@ -206,7 +211,7 @@ public class Dungeon {
 	public static boolean daily;
 	public static boolean dailyReplay;
 	public static boolean extrastage_Gavial; // true라면 가비알 스테이지 실행
-
+	public static boolean extrastage_Sea;
 	public static boolean isPray; // 프리스티스를 위한 기도를 하였는가?
 	public static boolean killcat; // 엔딩 씬에서 켈시 하극상 출현용.
 
@@ -292,7 +297,7 @@ public class Dungeon {
 		isPray = false;
 		killcat = false;
 		extrastage_Gavial = false;
-
+		extrastage_Sea = false;
 		Jessica.QuestClear = false;
 		NPC_Phantom.QuestClear = false;
 		FrostLeaf.QuestClear = false;
@@ -319,6 +324,7 @@ public class Dungeon {
 		Wandmaker.Quest.reset();
 		Blacksmith.Quest.reset();
 		Imp.Quest.reset();
+		Ceylon.Quest.reset();//change from budding
 
 		hero = new Hero();
 		hero.live();
@@ -429,8 +435,9 @@ public class Dungeon {
 			case 32:
 			case 33:
 			case 34:
-				if (extrastage_Gavial) {level = new GavialLevel(); break;}
-				level = new SiestaLevel_part1();
+				if (extrastage_Gavial) level = new GavialLevel();
+				else if (extrastage_Sea) level = new SeaLevel_part1();
+				else level = new SiestaLevel_part1();
 				break;
 			case 35:
 				if (extrastage_Gavial) level = new GavialBossLevel1();
@@ -441,6 +448,7 @@ public class Dungeon {
 			case 38:
 			case 39:
 				if (extrastage_Gavial) {level = new GavialLevel(); break;}
+				else if (extrastage_Sea) {level = new SeaLevel_part2();break;}
 				level = new SiestaLevel_part2();
 				break;
 			case 40:
@@ -627,6 +635,7 @@ public class Dungeon {
 	private static final String TALU    = "talucount";
 	private static final String SIEBOSS1    = "siesta1_bosspower";
 	private static final String GAVIAL    = "extrastage_Gavial";
+	private static final String SEE = "extrastage_See";
 	private static final String CATQUEST    = "QuestCatPoint";
 	private static final String PHANTOM_QUESTCLEAR    = "NPC_Phantom.QuestClear";
 	private static final String JESI_QUESTCLEAR    = "Jessica.QuestClear";
@@ -669,6 +678,7 @@ public class Dungeon {
 			bundle.put (TALU, talucount);
 			bundle.put (SIEBOSS1, siesta1_bosspower);
 			bundle.put (GAVIAL, extrastage_Gavial);
+			bundle.put (SEE, extrastage_Sea);
 
 			bundle.put (PHANTOM_QUESTCLEAR, NPC_Phantom.QuestClear);
 			bundle.put (JESI_QUESTCLEAR, Jessica.QuestClear);
@@ -773,6 +783,7 @@ public class Dungeon {
 		customSeedText = bundle.getString( CUSTOM_SEED );
 		daily = bundle.getBoolean( DAILY );
 		dailyReplay = bundle.getBoolean( DAILY_REPLAY );
+		Actor.clear();//change from budding;shattered
 		Actor.restoreNextID( bundle );
 
 		quickslot.reset();
@@ -853,6 +864,7 @@ public class Dungeon {
 		talucount = bundle.getInt(TALU);
 		siesta1_bosspower = bundle.getInt(SIEBOSS1);
 		extrastage_Gavial = bundle.getBoolean(GAVIAL);
+		extrastage_Sea = bundle.getBoolean(SEE);
 
 		QuestCatPoint = bundle.getInt(CATQUEST);
 
@@ -1028,7 +1040,32 @@ public class Dungeon {
 			BArray.or( level.visited, level.heroFOV, a.pos - 1 + level.width(), 3, level.visited );
 			GameScene.updateFog(a.pos, 2);
 		}
+		for (Char ch : Actor.chars()){//change from budding,shattered
+			if (ch instanceof WandOfWarding.Ward
+					|| ch instanceof WandOfRegrowth.Lotus
+					|| ch instanceof StaffOfMayer.Ward){
+				x = ch.pos % level.width();
+				y = ch.pos / level.width();
 
+				//left, right, top, bottom
+				dist = ch.viewDistance+1;
+				l = Math.max( 0, x - dist );
+				r = Math.min( x + dist, level.width() - 1 );
+				t = Math.max( 0, y - dist );
+				b = Math.min( y + dist, level.height() - 1 );
+
+				width = r - l + 1;
+				height = b - t + 1;
+
+				pos = l + t * level.width();
+
+				for (int i = t; i <= b; i++) {
+					BArray.or( level.visited, level.heroFOV, pos, width, level.visited );
+					pos+=level.width();
+				}
+				GameScene.updateFog(ch.pos, dist);
+			}
+		}
 		GameScene.afterObserve();
 	}
 

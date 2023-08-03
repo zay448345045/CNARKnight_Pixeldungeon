@@ -51,7 +51,8 @@ public class Shopkeeper extends NPC {
 	protected boolean act() {
 
 		if (Dungeon.level.heroFOV[pos]){
-			Notes.add(Notes.Landmark.SHOP);
+			if (Dungeon.depth!=20)//change from budding
+				Notes.add(Notes.Landmark.SHOP);
 		}
 		
 		sprite.turnTo( pos, Dungeon.hero.pos );

@@ -88,9 +88,9 @@ public class Faust extends Mob {
     }
 
     @Override
-    public void move(int step) {
+    public void move(int step,boolean travelling) {
         charge = 0;
-        super.move(step);
+        super.move(step,travelling);
     }
 
     @Override

@@ -34,10 +34,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -52,8 +54,8 @@ public class WaterOfTransmutation extends WellWater {
 		
 		if (item instanceof MagesStaff) {
 			item = changeStaff( (MagesStaff)item );
-		} else if (item instanceof MeleeWeapon) {
-			item = changeWeapon( (MeleeWeapon)item );
+		} else if (item instanceof MeleeWeapon || item instanceof MissileWeapon) {
+			item = changeWeapon( (Weapon)item );//change from budding
 		} else if (item instanceof Scroll) {
 			item = changeScroll( (Scroll)item );
 		} else if (item instanceof Potion) {
@@ -66,7 +68,10 @@ public class WaterOfTransmutation extends WellWater {
 			item = changeSeed( (Plant.Seed)item );
 		} else if (item instanceof Artifact) {
 			item = changeArtifact( (Artifact)item );
-		} else {
+		} else if (item instanceof Runestone){
+			item = changeStone((Runestone) item);
+		}
+		else {
 			item = null;
 		}
 		
@@ -113,13 +118,18 @@ public class WaterOfTransmutation extends WellWater {
 		return staff;
 	}
 	
-	private Weapon changeWeapon( MeleeWeapon w ) {
-		
+	private Weapon changeWeapon( Weapon w ) {
+
 		Weapon n;
-		Category c = Generator.wepTiers[w.tier-1];
+		Generator.Category c;
+		if (w instanceof MeleeWeapon) {
+			c = Generator.wepTiers[((MeleeWeapon)w).tier - 1];
+		} else {
+			c = Generator.misTiers[((MissileWeapon)w).tier - 1];
+		}
 
 		do {
-			n = (MeleeWeapon)Reflection.newInstance(c.classes[Random.chances(c.probs)]);
+			n = (Weapon) Reflection.newInstance(c.classes[Random.chances(c.probs)]);
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		int level = w.level();
@@ -144,7 +154,7 @@ public class WaterOfTransmutation extends WellWater {
 	private Ring changeRing( Ring r ) {
 		Ring n;
 		do {
-			n = (Ring)Generator.random( Category.RING );
+			n = (Ring)Generator.random( Generator.Category.RING );
 		} while (Challenges.isItemBlocked(n) || n.getClass() == r.getClass());
 		
 		n.level(0);
@@ -164,7 +174,10 @@ public class WaterOfTransmutation extends WellWater {
 	}
 
 	private Artifact changeArtifact( Artifact a ) {
-		Artifact n = Generator.randomArtifact();
+		Artifact n;
+		do {
+			n = Generator.randomArtifact();
+		} while ( n != null && (Challenges.isItemBlocked(n) || n.getClass() == a.getClass()));//change from budding ,shattered
 
 		if (n != null && !Challenges.isItemBlocked(n)){
 			n.cursedKnown = a.cursedKnown;
@@ -181,7 +194,7 @@ public class WaterOfTransmutation extends WellWater {
 		
 		Wand n;
 		do {
-			n = (Wand)Generator.random( Category.WAND );
+			n = (Wand)Generator.random( Generator.Category.WAND );
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 		
 		n.level( 0 );
@@ -202,7 +215,7 @@ public class WaterOfTransmutation extends WellWater {
 		Plant.Seed n;
 		
 		do {
-			n = (Plant.Seed)Generator.random( Category.SEED );
+			n = (Plant.Seed)Generator.randomUsingDefaults( Generator.Category.SEED );
 		} while (n.getClass() == s.getClass());
 		
 		return n;
@@ -217,7 +230,7 @@ public class WaterOfTransmutation extends WellWater {
 			
 			Scroll n;
 			do {
-				n = (Scroll)Generator.random( Category.SCROLL );
+				n = (Scroll)Generator.randomUsingDefaults( Category.SCROLL );
 			} while (n.getClass() == s.getClass());
 			return n;
 		}
@@ -232,12 +245,21 @@ public class WaterOfTransmutation extends WellWater {
 			
 			Potion n;
 			do {
-				n = (Potion)Generator.random( Category.POTION );
+				n = (Potion)Generator.randomUsingDefaults( Category.POTION );
 			} while (n.getClass() == p.getClass());
 			return n;
 		}
 	}
-	
+	private Runestone changeStone(Runestone r ) {
+
+		Runestone n;
+
+		do {
+			n = (Runestone) Generator.randomUsingDefaults( Generator.Category.STONE );
+		} while (n.getClass() == r.getClass());
+
+		return n;
+	}
 	@Override
 	public String tileDesc() {
 		return Messages.get(this, "desc");

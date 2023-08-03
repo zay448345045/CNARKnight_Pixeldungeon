@@ -88,7 +88,7 @@ public class WandOfHealing extends DamageWand {
     @Override
     public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
         if (Random.Int(4) < 2)
-        Buff.prolong( defender, Weakness.class, 1f+staff.buffedLvl() / 2);
+            Buff.prolong( defender, Weakness.class, 1f+staff.buffedLvl() / 2);
     }
 
     protected int initialCharges() {
@@ -101,7 +101,7 @@ public class WandOfHealing extends DamageWand {
         if (levelKnown)
             return Messages.get(this, "stats_desc", min(), max(), 2 + buffedLvl(), Math.max(chargeLeft, 0));
         else
-            return Messages.get(this, "stats_desc", 2, 5, 2, chargeLimit(Dungeon.hero.lvl));
+            return Messages.get(this, "stats_desc", 1, 4, 2, chargeLimit(Dungeon.hero.lvl));//change from budding
     }
 
     private static final String TOTAL = "totChrgUsed";

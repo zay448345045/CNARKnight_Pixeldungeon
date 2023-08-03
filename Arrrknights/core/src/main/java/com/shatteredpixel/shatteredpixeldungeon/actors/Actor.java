@@ -114,7 +114,7 @@ public abstract class Actor implements Bundlable {
 		}
 	}
 
-	private static int nextID = 1;
+	//private static int nextID = 1;
 	public int id() {
 		if (id > 0) {
 			return id;
@@ -132,7 +132,7 @@ public abstract class Actor implements Bundlable {
 	private static volatile Actor current;
 
 	private static SparseArray<Actor> ids = new SparseArray<>();
-
+	private static int nextID = 1;//change from budding;shattered
 	private static float now = 0;
 	
 	public static float now(){

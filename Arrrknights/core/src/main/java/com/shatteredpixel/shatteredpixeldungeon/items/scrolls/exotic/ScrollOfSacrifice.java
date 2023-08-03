@@ -34,6 +34,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
+import java.util.ArrayList;
+
 public class ScrollOfSacrifice extends ExoticScroll {
 	
 	{
@@ -44,15 +46,19 @@ public class ScrollOfSacrifice extends ExoticScroll {
 	public void doRead() {
 		int Sacrifice = 0;
 
+		ArrayList<Char> affected = new ArrayList<>();//change from budding
+
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 			if (!mob.properties().contains(Char.Property.BOSS) && !mob.properties().contains(Char.Property.MINIBOSS)
 			&& Dungeon.level.heroFOV[mob.pos] && Sacrifice < 3) {
-				mob.damage(9999, this);
-				mob.sprite.bloodBurstA(mob.sprite.center(), 6);
+				affected.add(mob);
 				Sacrifice++;
 			}
 		}
-
+		for (Char mob:affected){
+			mob.damage(9999, this);
+			mob.sprite.bloodBurstA(mob.sprite.center(), 6);
+		}
 		if (Sacrifice != 3) {
 			Dungeon.hero.sprite.bloodBurstA(Dungeon.hero.sprite.center(), 6);
 			Dungeon.hero.damage(Dungeon.hero.HT / 2,this);

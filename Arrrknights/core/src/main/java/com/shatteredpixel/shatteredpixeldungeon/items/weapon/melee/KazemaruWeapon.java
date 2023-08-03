@@ -26,8 +26,8 @@ import java.util.ArrayList;
 public class KazemaruWeapon extends MeleeWeapon {
 
     {
-        image = ItemSpriteSheet.POMBBAY;
-        hitSound = Assets.Sounds.HIT_SLASH;
+        image = ItemSpriteSheet.KAZEMARU;
+        hitSound = Assets.Sounds.HIT_SLASH2;
         hitSoundPitch = 1.11f;
 
         tier = 4;
@@ -65,7 +65,7 @@ public class KazemaruWeapon extends MeleeWeapon {
                 KazemaruSummon summon = new KazemaruSummon();
                 summon.GetWeaponLvl(buffedLvl());
                 summon.GetTarget(defender);
-                if (attacker instanceof Hero || attacker.alignment == Char.Alignment.ALLY) summon.GetAlignment(true);//change from budding
+                summon.alignment=attacker.alignment;
                 GameScene.add(summon);
                 ScrollOfTeleportation.appear(summon, respawnPoints.get(index));
 
@@ -105,5 +105,17 @@ public class KazemaruWeapon extends MeleeWeapon {
             maxLvl = wlvl;
         }
         public void GetTarget(Char t) {target = t.pos;}//change from budding
-        public void GetAlignment(boolean isally){if (isally) alignment = Alignment.ALLY;}//change from budding
-    }}
+        private static String ISALLY = "is_ally";
+        @Override
+        public void storeInBundle( Bundle bundle ) {
+            super.storeInBundle( bundle );
+            bundle.put( ISALLY, alignment );
+        }
+
+        @Override
+        public void restoreFromBundle( Bundle bundle ) {
+            super.restoreFromBundle( bundle );
+            alignment = bundle.getEnum( ISALLY ,Alignment.class);
+        }
+    }
+}

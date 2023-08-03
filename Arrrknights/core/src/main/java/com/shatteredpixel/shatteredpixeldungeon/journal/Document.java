@@ -57,12 +57,12 @@ public enum Document {
 	}
 	
 	public boolean hasPage( String page ){
-		return pages.containsKey(page) && pages.get(page);
+		return true;/*pages.containsKey(page) && pages.get(page);*/
 	}
 	
 	public boolean hasPage( int pageIdx ){
-		return hasPage( pages.keySet().toArray(new String[0])[pageIdx] );
-	}
+		return true;//hasPage( pages.keySet().toArray(new String[0])[pageIdx] );
+	}//the two booleans change in annotation version
 	
 	public boolean hasAnyPages(){
 		for (String p : pages.keySet()){

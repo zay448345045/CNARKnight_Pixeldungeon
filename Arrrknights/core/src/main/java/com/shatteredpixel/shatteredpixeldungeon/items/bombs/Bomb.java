@@ -114,17 +114,17 @@ public class Bomb extends Item {
 
 	@Override
 	protected void onThrow( int cell ) {
+		int delay_time=2;//change from budding
 		if (!Dungeon.level.pit[ cell ] && lightingFuse) {
 			if (Dungeon.hero.belongings.getItem(IsekaiItem.class) != null) {
 				if (Dungeon.hero.belongings.getItem(IsekaiItem.class).isEquipped(Dungeon.hero)) {
-					if (Dungeon.hero.belongings.getItem(IsekaiItem.class).cursed) Actor.addDelayed(fuse = new Fuse().ignite(this), 8);
-					else Actor.addDelayed(fuse = new Fuse().ignite(this), 0);
+					if (Dungeon.hero.belongings.getItem(IsekaiItem.class).cursed) delay_time=8;
+					else delay_time=0;
 				}
-				else Actor.addDelayed(fuse = new Fuse().ignite(this), 2);
 			}
-			else Actor.addDelayed(fuse = new Fuse().ignite(this), 2);
+			Actor.addDelayed(fuse = new Fuse().ignite(this), delay_time);
 		}
-		if (Actor.findChar( cell ) != null && !(Actor.findChar( cell ) instanceof Hero) ){
+		if (delay_time>0 && Actor.findChar( cell ) != null && !(Actor.findChar( cell ) instanceof Hero) ){
 			ArrayList<Integer> candidates = new ArrayList<>();
 			for (int i : PathFinder.NEIGHBOURS8)
 				if (Dungeon.level.passable[cell + i])
@@ -143,8 +143,11 @@ public class Bomb extends Item {
 		}
 		return super.doPickUp(hero);
 	}
-
+//change from budding
 	public void explode(int cell){
+		explode(cell,true);
+	}
+	public void explode(int cell,boolean powered){
 		//We're blowing up, so no need for a fuse anymore.
 		this.fuse = null;
 
@@ -194,7 +197,7 @@ public class Bomb extends Item {
 				int dmg = Random.NormalIntRange(8 + Dungeon.depth, 16 + Dungeon.depth*2);
 
 				IsekaiItem.IsekaiBuff BombBuff = Dungeon.hero.buff( IsekaiItem.IsekaiBuff.class);
-				if (BombBuff != null) {
+				if (powered && BombBuff != null) {
 					dmg += BombBuff.itemLevel() * 4;
 				}
 
@@ -213,7 +216,7 @@ public class Bomb extends Item {
 					Dungeon.fail(Bomb.class);
 				}
 
-				if (BombBuff != null && ch.isAlive() && ch != Dungeon.hero) {
+				if (powered && BombBuff != null && ch.isAlive() && ch != Dungeon.hero) {
 					Buff.affect(ch, Paralysis.class, 3f);
 				}
 			}

@@ -512,7 +512,7 @@ public enum Catalog {
 				return cat.seen.get(itemClass);
 			}
 		}
-		return false;
+		return true;//the boolean changes in the annotation version
 	}
 
 	public static void setSeen(Class<? extends Item> itemClass){

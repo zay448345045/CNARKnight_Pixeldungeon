@@ -156,7 +156,6 @@ public class DictSpriteSheet {
                 return new Image(Assets.Sprites.LURKER, 0, 0, 14, 15);
             case BEE:
                 return new Image(Assets.Sprites.BEE, 0, 0, 16, 16);
-
             case SAD_GHOST:
                 return new Image(Assets.Sprites.GUARD, 0, 0, 14, 15);
             case WAND_MAKER:

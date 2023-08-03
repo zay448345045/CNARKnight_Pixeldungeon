@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -47,6 +48,7 @@ public class AlchemyKit extends Artifact {
 
         charge = 0;
         chargeCap = 100;
+        defaultAction=AC_ADD;
     }
 
     public static final String AC_CRATE = "CRATE";
@@ -61,21 +63,30 @@ public class AlchemyKit extends Artifact {
         actions.add(AC_ADD); }
         return actions;
     }
+    @Override//change from budding
+    public void execute( Hero hero ) {
+        if (charge>=chargeCap) defaultAction=AC_CRATE;
+        execute( hero, defaultAction );
+    }
 
     @Override
     public void execute(Hero hero, String action) {
 
         super.execute(hero, action);
-
-        if (action.equals(AC_CRATE)) {
-            if (charge < chargeCap) GLog.h(Messages.get(AlchemyKit.class, "chargeless"));
-            else {
-                CrateItem();
+        if (!isEquipped(hero)) {
+            GLog.i(Messages.get(Artifact.class, "need_to_equip"));
+        } else if(!cursed) {
+            if (action.equals(AC_CRATE)) {
+                if (charge < chargeCap) GLog.h(Messages.get(AlchemyKit.class, "chargeless"));
+                else {
+                    CrateItem();
+                    defaultAction = AC_ADD;
+                }
             }
-        }
 
-        if (action.equals(AC_ADD)) {
-            GameScene.selectItem(itemSelector, WndBag.Mode.ALCHEMYKIT_ONLY, Messages.get(this, "prompt"));
+            if (action.equals(AC_ADD)) {
+                GameScene.selectItem(itemSelector, WndBag.Mode.ALCHEMYKIT_ONLY, Messages.get(this, "prompt"));
+            }
         }
     }
 
@@ -155,8 +166,9 @@ public class AlchemyKit extends Artifact {
 
         charge = 0;
         if (level() < levelCap) upgrade();
-
+        updateQuickslot();//change from budding
         GLog.h(Messages.get(AlchemyKit.class, "getItem"));
+        Talent.onArtifactUsed(Dungeon.hero);
     }
 
     private int AddItem(Item item) {
