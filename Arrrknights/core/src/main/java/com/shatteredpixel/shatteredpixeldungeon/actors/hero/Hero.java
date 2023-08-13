@@ -856,6 +856,14 @@ public class Hero extends Char {
     @Override
     public void spend(float time) {
         justMoved = false;
+        for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
+            int cell = pos+PathFinder.NEIGHBOURS8[i];
+            Char mob= Actor.findChar(cell);
+            if (mob!=null){
+                if (mob.alignment != Alignment.ALLY)
+                    com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Camouflage.dispelCamouflage(mob);
+            }
+        }
         TimekeepersHourglass.timeFreeze freeze = buff(TimekeepersHourglass.timeFreeze.class);
         if (freeze != null) {
             freeze.processTime(time);
@@ -878,7 +886,7 @@ public class Hero extends Char {
             mark.Charged(time);
         }
         else if (subClass == HeroSubClass.WILD) Buff.affect(this, WildMark.class);
-        if (Dungeon.depth > 35 && Dungeon.extrastage_Sea && Dungeon.level.map[this.pos] == Terrain.EMPTY_SP) {
+        if (Dungeon.depth > 35 && Dungeon.extrastage_Sea && Dungeon.level.map[this.pos] == Terrain.SEE_TEEROR1 || Dungeon.level.map[this.pos] == Terrain.SEE_TEEROR2) {
             if (buff(NervousImpairment.class) == null) {
                 Buff.affect(this, NervousImpairment.class);
             }
@@ -889,13 +897,26 @@ public class Hero extends Char {
             int evaporatedTiles;
             evaporatedTiles = Random.chances(new float[]{0, 0, 0, 2, 1, 1});
             for (int i = 0; i < evaporatedTiles; i++) {
-                if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
-                    Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.EMPTY_SP);//change from budding
-                    //Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.EMPTY_SP;
+                if (Dungeon.level.map[pos + PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos + PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY_SP
+                        || Dungeon.level.map[pos + PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY_DECO
+                        || Dungeon.level.map[pos + PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
+                    if (Random.Int(2) == 0)
+                        Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.SEE_TEEROR1);//change from budding
+                        //Dungeon.level.map[pos + PathFinder.NEIGHBOURS8[i]] = Terrain.SEE_TEEROR1;
+                    else
+                        Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.SEE_TEEROR2);//change from budding
+                        //Dungeon.level.map[pos + PathFinder.NEIGHBOURS8[i]] = Terrain.SEE_TEEROR2;
                     CellEmitter.get(pos+PathFinder.NEIGHBOURS8[i]).burst(Speck.factory(Speck.BUBBLE), 10);
                     GameScene.updateMap( pos+PathFinder.NEIGHBOURS8[i] );
                     Dungeon.observe();
+
+               /* if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
+
+                    Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.EMPTY_SP);//change from budding
+                    //Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.EMPTY_SP;
+
                     //GameScene.resetMap();
+                }*/
                 }
             }
         }
@@ -904,7 +925,7 @@ public class Hero extends Char {
                 if (belongings.getItem(RingOfMight.class) != null && belongings.getItem(RingOfTenacity.class) != null) {
                     if (belongings.getItem(RingOfTenacity.class).isEquipped(this) && belongings.getItem(RingOfMight.class).isEquipped(this)){
                         for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-                            if (Dungeon.level.adjacent(mob.pos, pos) && mob.alignment != Char.Alignment.ALLY && !mob.properties().contains(Property.NPC)
+                            if (Dungeon.level.adjacent(mob.pos, pos) && mob.alignment != Alignment.ALLY && !mob.properties().contains(Property.NPC)
                                     && !(mob instanceof Shopkeeper) && !(mob instanceof ImpShopkeeper)) {
                                 mob.sprite.emitter().burst( ShadowParticle.CURSE, 15);
                                 Buff.affect(mob, Hex.class, 3f);
@@ -942,7 +963,7 @@ public class Hero extends Char {
         for (int cell = 0; cell < PathFinder.distance.length; cell++) {
             if (PathFinder.distance[cell] < Integer.MAX_VALUE) {
                 Char ch = Actor.findChar(cell);
-                if (ch != null&& !(ch instanceof Hero) && ch.alignment == Char.Alignment.ENEMY) {
+                if (ch != null&& !(ch instanceof Hero) && ch.alignment == Alignment.ENEMY) {
                     Buff.detach(this, com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Camouflage.class); }}}//change from budding
 
 

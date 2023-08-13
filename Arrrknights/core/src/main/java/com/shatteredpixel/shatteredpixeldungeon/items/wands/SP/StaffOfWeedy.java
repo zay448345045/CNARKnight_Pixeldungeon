@@ -162,9 +162,10 @@ public class StaffOfWeedy extends DamageWand {
                 }
                 int oldPos = ch.pos;
                 ch.pos = newPos;
-                if (finalCollided && ch.isAlive()) {
+                if (finalCollided && ch.isActive()) {
                     ch.damage(Random.NormalIntRange(2*finalDist, 6*finalDist), this);
-                    Paralysis.prolong(ch, Paralysis.class, 1 + finalDist/2f);
+                    if (ch.isActive())
+                        Paralysis.prolong(ch, Paralysis.class, 1 + finalDist/2f);
                 }
                 if (closeDoors && Dungeon.level.map[oldPos] == Terrain.OPEN_DOOR){
                     Door.leave(oldPos);

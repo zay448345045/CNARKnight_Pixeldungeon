@@ -27,15 +27,13 @@ public class NPC_Irene extends NPC {
     @Override
     public boolean interact(Char c) {
         sprite.turnTo(pos, c.pos);
-        Dungeon.extrastage_Sea=false;
-        sprite.showStatus(CharSprite.NEUTRAL,Messages.get(this,"delay"));
-        /*if (Dungeon.extrastage_Sea) {
+        if (Dungeon.extrastage_Sea) {
             Dungeon.extrastage_Sea = false;
             sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "no"));
         } else {
             Dungeon.extrastage_Sea = true;
             sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "ok"));
-        }*/ //change from budding,wait for completing
+        }
         return true;
     }
 

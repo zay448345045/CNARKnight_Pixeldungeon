@@ -449,7 +449,7 @@ public class Dungeon {
 			case 39:
 				if (extrastage_Gavial) {level = new GavialLevel(); break;}
 				else if (extrastage_Sea) {level = new SeaLevel_part2();break;}
-				level = new SiestaLevel_part2();
+				else level = new SiestaLevel_part2();
 				break;
 			case 40:
 				if (extrastage_Gavial) {level = new GavialBossLevel2(); break;}

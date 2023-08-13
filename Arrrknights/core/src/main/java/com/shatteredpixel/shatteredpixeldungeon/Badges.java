@@ -752,6 +752,9 @@ public class Badges {
 				case NEARL:
 						badge = Badge.BOSS_SLAIN_1_NEARL;
 						break;
+					case CHEN://change from budding
+						badge=Badge.BOSS_SLAIN_1_CHEN;
+						break;
 				}
 				local.add( badge );
 				unlock(badge);

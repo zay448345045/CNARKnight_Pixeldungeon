@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -405,14 +406,22 @@ public abstract class FistSprite extends MobSprite {
 
 			TextureFilm frames = new TextureFilm( texture, 72, 46 );
 
-			idle = new Animation( 9, true );
+			idle = new MovieClip.Animation( 5, true );
+			idle.frames( frames, c+0, c+1, c+2, c+1, c+0 );
+
+			run = new MovieClip.Animation( 8, true );
+			run.frames( frames, c+7, c+8, c+9, c+10, c+11, c+12, c+13, c+14 );
+
+			attack = new MovieClip.Animation( 15, false );
+			attack.frames( frames, c+3, c+4, c+5, c+6);
+			/*idle = new Animation( 9, true );
 			idle.frames( frames, c+0 );
 
 			run = new Animation( 8, true );
 			run.frames( frames, c+2, c+3, c+4, c+5, c+6, c+7, c+8, c+9 );
 
 			attack = new Animation( 18, false );
-			attack.frames( frames, c+1 );
+			attack.frames( frames, c+1 );*/
 
 			zap = new Animation( 8, false );
 			zap.frames( frames, c+1 );

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.OriginiutantSprite;
@@ -52,7 +53,7 @@ public class Sea_Brandguider extends Mob {
     protected boolean act() {
         if (HT /2 >= HP && this.buff(Silence.class) == null) {
             if (Dungeon.level.map[this.pos] == Terrain.EMPTY || Dungeon.level.map[this.pos] == Terrain.WATER) {
-                Dungeon.level.map[pos] = Terrain.EMPTY_SP;
+                Level.set(pos,Terrain.SEE_TEEROR1);//change from budding
                 CellEmitter.get(pos).burst(Speck.factory(Speck.BUBBLE), 10);
                 GameScene.updateMap( pos );
                 Dungeon.observe();

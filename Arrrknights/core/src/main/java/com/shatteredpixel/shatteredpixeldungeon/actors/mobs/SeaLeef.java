@@ -53,7 +53,7 @@ public class SeaLeef extends Mob {
 
     @Override
     protected boolean act() {
-        if (Dungeon.level.map[this.pos] == Terrain.EMPTY_SP) {
+        if (Dungeon.level.map[this.pos] == Terrain.SEE_TEEROR1 || Dungeon.level.map[this.pos] == Terrain.SEE_TEEROR2) {
             Buff.affect(this, Camouflage.class, 10f);
         }
         else Buff.detach(this,Camouflage.class);//change from budding

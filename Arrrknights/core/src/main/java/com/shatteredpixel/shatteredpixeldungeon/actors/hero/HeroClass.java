@@ -83,6 +83,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.testtool.Generators_Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.Generators_Skill;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.ImmortalShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.LazyTest;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.MobBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.MobPlacer;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.LevelTeleporter;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.TimeReverser;
@@ -397,8 +398,11 @@ import com.watabou.utils.DeviceCompat;
 	 private static void testToolSpawn(Hero hero) {
 		 if (Dungeon.isChallenged(Challenges.TEST)) {
 			 new TestToolBag().collect();
-
+			  RingOfDominate rod=new RingOfDominate();
+			  rod.level(74);
+			  rod.identify().collect();
 			 new DictBook().collect();
+			 new MobBook().collect();
 
 			 new MobPlacer().collect();
 

@@ -81,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.ExtremeSharpness;
+import com.shatteredpixel.shatteredpixeldungeon.items.Skill.SK3.TrueSilverSlash;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
@@ -601,7 +602,7 @@ public abstract class Char extends Actor {
 			dmg = (int) Math.ceil(dmg * buff.damageTakenFactor());
 		}
 
-		if (!(src instanceof LifeLink || src instanceof Naginata.naginataSkill || src instanceof ScrollOfSacrifice || src instanceof WarJournalist.PanoramaBuff) && buff(LifeLink.class) != null){
+		if (!(src instanceof LifeLink || src instanceof Naginata.naginataSkill || src instanceof ScrollOfSacrifice || src instanceof WarJournalist.PanoramaBuff || src instanceof TrueSilverSlash.tss) && buff(LifeLink.class) != null){
 			HashSet<LifeLink> links = buffs(LifeLink.class);
 			for (LifeLink link : links.toArray(new LifeLink[0])){
 				if (Actor.findById(link.object) == null){
@@ -714,7 +715,11 @@ public abstract class Char extends Actor {
 	public boolean isAlive() {
 		return HP > 0;
 	}
-	
+// change from budding, shattered
+	public boolean isActive() {
+		return isAlive();
+	}
+
 	@Override
 	protected void spend( float time ) {
 		

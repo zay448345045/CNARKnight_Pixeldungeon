@@ -1198,12 +1198,24 @@ public abstract class Mob extends Char {
 			int evaporatedTiles;
 			evaporatedTiles = Random.chances(new float[]{0, 0, 0, 0, 0, 1, 2, 1, 1});
 			for (int i = 0; i < evaporatedTiles; i++) {
-				if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
-					Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.EMPTY_SP);//change from budding
-					//Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.EMPTY_SP;
+				if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY
+						|| Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY_SP
+						|| Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY_DECO
+						|| Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
+					if (Random.Int(2) == 0)
+						Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.SEE_TEEROR1);//change from budding
+						//Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.SEE_TEEROR1;
+					else
+						Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.SEE_TEEROR2);//change from budding
+						//Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.SEE_TEEROR2;
 					GameScene.updateMap( pos+PathFinder.NEIGHBOURS8[i] );
 					CellEmitter.get(pos+PathFinder.NEIGHBOURS8[i]).burst(Speck.factory(Speck.BUBBLE), 10);
 					Dungeon.observe();
+
+				/*if (Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.EMPTY || Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] == Terrain.WATER) {
+					Level.set(pos+PathFinder.NEIGHBOURS8[i],Terrain.EMPTY_SP);//change from budding
+					//Dungeon.level.map[pos+PathFinder.NEIGHBOURS8[i]] = Terrain.EMPTY_SP;
+					*/
 				}
 			}
 		}

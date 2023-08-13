@@ -228,6 +228,10 @@ public enum DictionaryJournal {
         PLANTS.d.put("seed_swiftthistle",   ItemSpriteSheet.SEED_SWIFTTHISTLE);
         //ring
         RINGS.d.put("ring_accuracy",        ItemSpriteSheet.RING_AGATE);
+        RINGS.d.put("ring_amplified",       ItemSpriteSheet.RING_AGATE);
+        RINGS.d.put("ring_assassin",        ItemSpriteSheet.RING_AGATE);
+        RINGS.d.put("ring_command",         ItemSpriteSheet.RING_AGATE);
+        RINGS.d.put("ring_dominate",        ItemSpriteSheet.RING_AGATE);
         RINGS.d.put("ring_element",         ItemSpriteSheet.RING_AGATE);
         RINGS.d.put("ring_energy",          ItemSpriteSheet.RING_DIAMOND);
         RINGS.d.put("ring_evasion",         ItemSpriteSheet.RING_DIAMOND);
@@ -235,13 +239,16 @@ public enum DictionaryJournal {
         RINGS.d.put("ring_furor",           ItemSpriteSheet.RING_EMERALD);
         RINGS.d.put("ring_haste",           ItemSpriteSheet.RING_EMERALD);
         RINGS.d.put("ring_might",           ItemSpriteSheet.RING_EMERALD);
+        RINGS.d.put("ring_mistress",        ItemSpriteSheet.RING_EMERALD);
         RINGS.d.put("ring_shoot",           ItemSpriteSheet.RING_QUARTZ);
+        RINGS.d.put("ring_sun",             ItemSpriteSheet.RING_QUARTZ);
         RINGS.d.put("ring_tenacity",        ItemSpriteSheet.RING_QUARTZ);
         RINGS.d.put("ring_wealth",          ItemSpriteSheet.RING_QUARTZ);
         //wand
         WANDS.d.put("wand_blastwave",       ItemSpriteSheet.WAND_BLAST_WAVE);
         WANDS.d.put("wand_weedy",           ItemSpriteSheet.WAND_BLAST_WAVE);
         WANDS.d.put("wand_corrosion",       ItemSpriteSheet.WAND_CORROSION);
+        WANDS.d.put("wand_breeze",          ItemSpriteSheet.WAND_CORROSION);
         WANDS.d.put("wand_corruption",      ItemSpriteSheet.WAND_CORRUPTION);
         WANDS.d.put("wand_oo",              ItemSpriteSheet.WAND_CORRUPTION);
         WANDS.d.put("wand_beam",            ItemSpriteSheet.WAND_DISINTEGRATION);
@@ -257,17 +264,22 @@ public enum DictionaryJournal {
         WANDS.d.put("wand_lightning",       ItemSpriteSheet.WAND_LIGHTNING);
         WANDS.d.put("wand_grey",            ItemSpriteSheet.WAND_LIGHTNING);
         WANDS.d.put("wand_soil",            ItemSpriteSheet.WAND_LIVING_EARTH);
+        WANDS.d.put("wand_mudrock",         ItemSpriteSheet.WAND_LIVING_EARTH);
         WANDS.d.put("wand_magicmissile",    ItemSpriteSheet.WAND_MAGIC_MISSILE);
         WANDS.d.put("wand_absinthe",        ItemSpriteSheet.WAND_MAGIC_MISSILE);
         WANDS.d.put("wand_light",           ItemSpriteSheet.WAND_PRISMATIC_LIGHT);
         WANDS.d.put("wand_shining",         ItemSpriteSheet.WAND_PRISMATIC_LIGHT);
+        WANDS.d.put("wand_purgatory",       ItemSpriteSheet.WAND_LAVA);
         WANDS.d.put("wand_grass",           ItemSpriteSheet.WAND_REGROWTH);
         WANDS.d.put("wand_lena",            ItemSpriteSheet.WAND_REGROWTH);
         WANDS.d.put("wand_silence",         ItemSpriteSheet.WAND_SNOWSANT);
         WANDS.d.put("wand_snowsant",        ItemSpriteSheet.WAND_SNOWSANT);
+        WANDS.d.put("wand_suzuran",         ItemSpriteSheet.WAND_SUZRAN);
+        WANDS.d.put("wand_time",            ItemSpriteSheet.WAND_MOSTIMA);
         WANDS.d.put("wand_transfusion",     ItemSpriteSheet.WAND_TRANSFUSION);
         WANDS.d.put("wand_angelina",        ItemSpriteSheet.WAND_TRANSFUSION);
         WANDS.d.put("wand_warding",         ItemSpriteSheet.WAND_WARDING);
+        WANDS.d.put("wand_mayer",           ItemSpriteSheet.WAND_WARDING);
         //weapon, melee
         WEAPONS.d.put("melee_wornsword",    ItemSpriteSheet.WORN_SHORTSWORD);
         WEAPONS.d.put("melee_gloves",       ItemSpriteSheet.GLOVES);
