@@ -28,6 +28,7 @@ public class SeaBoss1 extends Mob{
         defenseSkill = 25;
 
         properties.add(Property.SEA);
+        properties.add(Property.BOSS);
     }
 
     boolean SkillActive = false; // true라면 받는 피해 감소

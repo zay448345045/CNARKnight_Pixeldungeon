@@ -750,7 +750,7 @@ public class NewDM300 extends Mob {
 						break;
 					}
 				}
-                if (avoid_pylon && Dungeon.isChallenged(Challenges.DECISIVE_BATTLE)) {
+                if (avoid_pylon && Dungeon.isChallenged(Challenges.DECISIVE_BATTLE) && Dungeon.depth==15) {//change from budding
                     if (Random.IntRange(0,3) < 2) {
                         if (Dungeon.level.map[i] == Terrain.EMPTY || Dungeon.level.map[i] == Terrain.EMPTY_DECO || Dungeon.level.map[i] == Terrain.EMPTY_SP) {
                         Level.set(i, Terrain.WATER);

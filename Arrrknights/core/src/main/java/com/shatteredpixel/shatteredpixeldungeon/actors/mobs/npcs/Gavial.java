@@ -41,6 +41,7 @@ public class Gavial extends NPC {
             } else {
                 Dungeon.extrastage_Gavial = true;
                 sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "ok"));
+                Dungeon.extrastage_Sea = false;
             }
         }
         return true;

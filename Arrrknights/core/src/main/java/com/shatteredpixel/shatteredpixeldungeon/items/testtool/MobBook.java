@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.miniboss.Sentinel;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.miniboss.Shadow;
 import com.shatteredpixel.shatteredpixeldungeon.custom.dict.Dict;
 import com.shatteredpixel.shatteredpixeldungeon.custom.dict.DictSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.custom.dict.WndScrollTitledMessage;
 import com.shatteredpixel.shatteredpixeldungeon.custom.messages.M;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -34,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
@@ -180,7 +182,8 @@ public class MobBook extends ChallengeItem{
                 @Override
                 public void onClick(){
                     if (inside(x, y)) {
-                        GameScene.show(new WndTitledMessage(Reflection.newInstance(allData.get(dataThreshold(mobTier)+mobIndex).getMobClass()).sprite(), M.TL(allData.get(dataThreshold(mobTier) + mobIndex).mobClass,"name"), M.L(Dict.class,"mob_"+allData.get(dataThreshold(mobTier) + mobIndex).mobClass.toString().substring(59)+"_d")));
+                        GameScene.show(new WndScrollTitledMessage(Reflection.newInstance(allData.get(dataThreshold(mobTier)+mobIndex).getMobClass()).sprite(), M.TL(allData.get(dataThreshold(mobTier) + mobIndex).mobClass,"name"), M.L(Dict.class,"mob_"+allData.get(dataThreshold(mobTier) + mobIndex).mobClass.toString().substring(59)+"_d"),152));
+                        //GameScene.show(new WndTitledMessage(Reflection.newInstance(allData.get(dataThreshold(mobTier)+mobIndex).getMobClass()).sprite(), M.TL(allData.get(dataThreshold(mobTier) + mobIndex).mobClass,"name"), M.L(Dict.class,"mob_"+allData.get(dataThreshold(mobTier) + mobIndex).mobClass.toString().substring(59)+"_d")));
                     }
                 }
             };

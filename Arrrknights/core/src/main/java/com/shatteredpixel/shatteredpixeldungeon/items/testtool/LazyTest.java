@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMag
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfDominate;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -42,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutat
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ArcaneCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.InstantRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlink;
@@ -155,8 +157,13 @@ public class LazyTest extends Generators {
             roa.level(22);
             roa.identify().collect();
 
+            RingOfDominate rod=new RingOfDominate();
+            rod.level(74);
+            rod.identify().collect();
+
             new ScrollOfPsionicBlast().quantity(100).identify().collect();
             new PotionOfCleansing().quantity(100).identify().collect();
+            new InstantRecharge().quantity(100).collect();
 
             new GooBlob().quantity(100).collect();
             new MetalShard().quantity(100).collect();

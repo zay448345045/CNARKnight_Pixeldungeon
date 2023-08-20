@@ -473,6 +473,14 @@ public class Assets {
 		public static final String SEA_BRANDGUIDER	= "sprites/sea_brandguider.png";
 		public static final String SEA_LEEF = "sprites/sea_reef.png";
 
+
+		public static final String MULA_HEAD	= "sprites/mula_1.png";
+		public static final String MULA_BODY	= "sprites/mula_2.png";
+		public static final String MULA_TAIL	= "sprites/mula_3.png";
+
+
+
+
 		//명픽던에서만 추가된 것들↓
 		public static final String KALTSIT	= "sprites/kaltsit.png";
 		public static final String KALTSIT_NPC	= "sprites/kaltsit_npc.png";

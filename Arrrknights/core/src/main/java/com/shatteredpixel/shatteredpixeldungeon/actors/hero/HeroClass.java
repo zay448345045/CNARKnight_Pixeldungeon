@@ -86,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.testtool.LazyTest;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.MobBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.MobPlacer;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.LevelTeleporter;
+import com.shatteredpixel.shatteredpixeldungeon.items.testtool.MyOrder;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.TimeReverser;
 import com.shatteredpixel.shatteredpixeldungeon.items.testtool.TrapPlacer;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
@@ -398,9 +399,6 @@ import com.watabou.utils.DeviceCompat;
 	 private static void testToolSpawn(Hero hero) {
 		 if (Dungeon.isChallenged(Challenges.TEST)) {
 			 new TestToolBag().collect();
-			  RingOfDominate rod=new RingOfDominate();
-			  rod.level(74);
-			  rod.identify().collect();
 			 new DictBook().collect();
 			 new MobBook().collect();
 
@@ -421,6 +419,8 @@ import com.watabou.utils.DeviceCompat;
 			 new LevelTeleporter().collect();
 
 			 new LazyTest().collect();
+
+			 new MyOrder().collect();
 
 			 new Generators_Armor().collect();
 			 new Generators_Artifact().collect();

@@ -245,7 +245,7 @@ public class Pompeii extends Mob {
 
             int spawnPos = -1;
             for (int i : PathFinder.NEIGHBOURS8) {
-                if (Actor.findChar(pos + i) == null) {
+                if (Actor.findChar(pos + i) == null && !Dungeon.level.solid[pos+i]) {//change from budding
                     if (spawnPos == -1 || Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(Dungeon.hero.pos, pos + i)) {
                         spawnPos = pos + i;
                     }

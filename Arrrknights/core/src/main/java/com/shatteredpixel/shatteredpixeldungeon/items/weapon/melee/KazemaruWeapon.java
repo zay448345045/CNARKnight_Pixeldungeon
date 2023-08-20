@@ -136,7 +136,9 @@ public class KazemaruWeapon extends MeleeWeapon {
             return Random.NormalIntRange(maxLvl + 15, 20 + (maxLvl * 5));
         }
         @Override//change from budding
-        public int attackSkill( Char target ){return (alignment == Alignment.ALLY)?(Dungeon.hero.attackSkill(target)):(9+Dungeon.depth);}//change from budding
+        public int attackSkill( Char target ){
+            return INFINITE_ACCURACY;
+        }
         public void GetWeaponLvl(int wlvl) {
             maxLvl = wlvl;
         }

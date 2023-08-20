@@ -414,20 +414,13 @@ public abstract class FistSprite extends MobSprite {
 
 			attack = new MovieClip.Animation( 15, false );
 			attack.frames( frames, c+3, c+4, c+5, c+6);
-			/*idle = new Animation( 9, true );
-			idle.frames( frames, c+0 );
 
-			run = new Animation( 8, true );
-			run.frames( frames, c+2, c+3, c+4, c+5, c+6, c+7, c+8, c+9 );
+			zap = new MovieClip.Animation( 8, false );
+			zap.frames( frames, c+3, c+4, c+5, c+6 );
 
-			attack = new Animation( 18, false );
-			attack.frames( frames, c+1 );*/
+			die = new MovieClip.Animation( 10, false );
+			die.frames( frames, c+15 );
 
-			zap = new Animation( 8, false );
-			zap.frames( frames, c+1 );
-
-			die = new Animation( 10, false );
-			die.frames( frames, c+1 );
 
 			play( idle );//이 구문이 없을경우 스프라이트 오류가 남(찔러용 그거)
 		}

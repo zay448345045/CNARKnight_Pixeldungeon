@@ -33,6 +33,7 @@ public class NPC_Irene extends NPC {
         } else {
             Dungeon.extrastage_Sea = true;
             sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "ok"));
+            Dungeon.extrastage_Gavial = false;
         }
         return true;
     }

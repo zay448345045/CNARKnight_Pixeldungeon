@@ -48,6 +48,7 @@ public enum DictionaryJournal {
         ARTIFACTS.d.put("artifact_horn",            ItemSpriteSheet.ARTIFACT_HORN1);
         ARTIFACTS.d.put("artifact_isekai",          ItemSpriteSheet.ARTIFACT_ASH);
         ARTIFACTS.d.put("artifact_sandal",          ItemSpriteSheet.ARTIFACT_SANDALS);
+        ARTIFACTS.d.put("artifact_seal",            ItemSpriteSheet.ARTIFACT_NEARL);
         ARTIFACTS.d.put("artifact_talisman",        ItemSpriteSheet.ARTIFACT_TALISMAN);
         ARTIFACTS.d.put("artifact_armband",         ItemSpriteSheet.ARTIFACT_ARMBAND);
         ARTIFACTS.d.put("artifact_hourglass",       ItemSpriteSheet.ARTIFACT_HOURGLASS);
