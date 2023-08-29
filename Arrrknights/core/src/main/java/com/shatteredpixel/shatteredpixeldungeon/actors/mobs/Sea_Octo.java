@@ -10,9 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.Sea_SpewerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.StrikerSprite;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Sea_Octo extends Mob {
@@ -31,8 +34,23 @@ public class Sea_Octo extends Mob {
         properties.add(Property.SEA);
     }
 
+    private boolean firstTEEROR = false;
+
+    @Override
+    protected boolean act() {
+
+        //스폰시 첫 행동하면서 명흔을 깝니다.
+        if (!firstTEEROR) {
+            Level.set(this.pos, Terrain.SEE_TEEROR1);
+            GameScene.updateMap(this.pos);
+
+            firstTEEROR = true;
+        }
+        return super.act();
+    }
     @Override
     protected boolean canAttack(Char enemy) {
+        if (super.canAttack(enemy)) return true;//change from budding
         if (Dungeon.level.map[this.pos] == Terrain.SEE_TEEROR1 || Dungeon.level.map[this.pos] == Terrain.SEE_TEEROR2) return this.fieldOfView[enemy.pos] && Dungeon.level.distance(this.pos, enemy.pos) <= 8;
         return this.fieldOfView[enemy.pos] && Dungeon.level.distance(this.pos, enemy.pos) <= 1;
     }
@@ -63,5 +81,19 @@ public class Sea_Octo extends Mob {
         }
 
         return super.attackProc(enemy, damage);
+    }
+
+    private static final String VAL   = "firstTEEROR";
+
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle( bundle );
+        bundle.put( VAL, firstTEEROR );
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle( bundle );
+        firstTEEROR = bundle.getBoolean(VAL);
     }
 }

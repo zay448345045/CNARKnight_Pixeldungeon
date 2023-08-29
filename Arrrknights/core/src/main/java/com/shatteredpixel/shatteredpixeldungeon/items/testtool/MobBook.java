@@ -334,14 +334,20 @@ public class MobBook extends ChallengeItem{
         STRIKER_E(StrikerElite.class),
         PURSUER(EmperorPursuer.class),
         YOG(YogDzewa.class),
+        LARVA(YogDzewa.Larva.class),
+        BFIST(YogFist.BurningFist.class),
+        RFIST(YogFist.RottingFist.class),
         FIST(YogFist.BrightFist.class),
         BS(Talu_BlackSnake.class),
         SCORPIO(Scorpio.class),
         ACIDIC(Acidic.class),
 
+        BEE(Bee.class),
         STATUE(Statue.class),
         ARMORED_STATUE(ArmoredStatue.class),
         WRAITH(Wraith.class),
+        MIMIC(Mimic.class),
+        GOLDEN(GoldenMimic.class),
         CAYSTAL(CrystalMimic.class),
         SLAYER(Crownslayer_shadow.class),
         CANNOT(Cannot.class),
@@ -392,7 +398,7 @@ public class MobBook extends ChallengeItem{
         CAPSULE(SeaCapsule.class),
         OCTO(Sea_Octo.class),
         LEAF(SeaLeef.class),
-        SEABOSS1(SeaBoss1.class),
+        //SEABOSS1(SeaBoss1.class),change from budding
         GUIDER(Sea_Brandguider.class);
         private Class<? extends Mob> mobClass;
 

@@ -157,19 +157,33 @@ public class DictSpriteSheet {
             case BEE:
                 return new Image(Assets.Sprites.BEE, 0, 0, 16, 16);
             case SAD_GHOST:
-                return new Image(Assets.Sprites.GUARD, 0, 0, 14, 15);
+                Image sg=new Image(Assets.Sprites.GUARD, 257, 4, 23, 28);
+                sg.scale.set(0.5f);
+                return sg;
             case WAND_MAKER:
-                return new Image(Assets.Sprites.ACE, 0, 0, 12, 14);
+                Image wm=new Image(Assets.Sprites.ACE, 6, 1, 20, 32);
+                wm.scale.set(0.5f);
+                return wm;
             case BLACKSMITH:
-                return new Image(Assets.Sprites.VULCAN, 0, 0, 13, 16);
+                Image bs=new Image(Assets.Sprites.VULCAN, 28, 3, 27, 32);
+                bs.scale.set(0.5f);
+                return bs;
             case IMP:
-                return new Image(Assets.Sprites.IMP, 0, 0, 12, 14);
+                Image i=new Image(Assets.Sprites.IMP, 2, 5, 23, 32);
+                i.scale.set(0.5f);
+                return i;
             case IMAGE:
-                return new Image(Assets.Sprites.BLAZE, 0, 15, 12, 15);
+                Image im=new Image(Assets.Sprites.BLAZE, 5, 40, 21, 30);
+                im.scale.set(0.5f);
+                return im;
             case PRISMATIC_IMAGE:
-                return new Image(Assets.Sprites.BLAZE, 0, 15, 12, 15);
+                Image pri= new Image(Assets.Sprites.BLAZE, 1, 0, 21, 32);
+                pri.scale.set(0.5f);
+                return pri;
             case RAT_KING:
-                return new Image(Assets.Sprites.AJIMU, 0, 17, 16, 17);
+                Image rk = new Image(Assets.Sprites.AJIMU, 258, 6, 23, 27);
+                rk.scale.set(0.5f);
+                return rk;
             case SHEEP:
                 return new Image(Assets.Sprites.CIVILIAN, 0, 0, 16, 15);
             case HERO:

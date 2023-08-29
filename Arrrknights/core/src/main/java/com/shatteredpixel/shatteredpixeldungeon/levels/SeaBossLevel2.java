@@ -43,27 +43,61 @@ public class SeaBossLevel2 extends Level {
     @Override
     protected boolean build() {
 
-        setSize(15, 11);
+        setSize(21, 17);
         Arrays.fill( map, Terrain.EMPTY );
-
-        final int MID = width/2;
-
-        Painter.fill( this, 0, 0, 15, 1, Terrain.STATUE);
-        Painter.fill( this, 0, 10, 15, 1, Terrain.STATUE);
-        Painter.fill( this, 0, 0, 1, 11, Terrain.STATUE);
-        Painter.fill( this, 14, 0, 1, 11, Terrain.STATUE);
-
-
-        entrance = 127;
-
-        exit = 22;
-
-        map[entrance] = Terrain.ENTRANCE;
-        map[exit] = Terrain.EXIT;
 
         feeling = Feeling.NONE;
 
+        setMap();
+
         return true;
+    }
+
+    private static int W = Terrain.WALL; // 벽
+    private static int D = Terrain.WALL_DECO; // 장식된 벽
+    private static int e = Terrain.EMPTY; // 평범한 땅
+    private static int E = Terrain.EMPTY_DECO; // 빈 땅_장식
+    private static int S = Terrain.STATUE; // 구조물
+
+
+    // 현재 이 값을 기준으로하면, 외곽부분에 벽만 둘러지고 전부 일반땅인 맵이 생성됨.
+    // 대문자 E로 표시한 부분은 "입구"와 "출구"임으로 벽으로 막지 말거나 바꾸기전에 연락하면 따로 설명해드림 (출구는 사실 별 의미없긴함)
+    // 맵 사이즈를 늘릴 생각이라면 그것도 추가로 연락바람
+    private static final int[] endMap = new int[]{
+            W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
+            W, e, e, e, e, e, e, e, e, e, E, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W,
+            W, e, e, e, e, e, e, e, e, e, E, e, e, e, e, e, e, e, e, e, W,
+            W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
+    };
+
+    private void setMap(){
+
+        int cell = 0;
+        int i = 0;
+        while (cell < length()){
+            System.arraycopy(endMap, i, map, cell, 21);
+            i += 21;
+            cell += width();
+        }
+
+        entrance = 325; // 입구 위치
+        exit = 31; // 출구 위치
+
+        map[entrance] = Terrain.ENTRANCE;
+        map[exit] = Terrain.EXIT;
     }
 
     @Override
@@ -73,15 +107,15 @@ public class SeaBossLevel2 extends Level {
 
         if (ch.pos != map[entrance] && map[exit] == Terrain.EXIT) {
             SeaBoss2_Phase2_Head boss1 = new SeaBoss2_Phase2_Head();
-            boss1.pos = 39;
+            boss1.pos = 32;
             GameScene.add( boss1 );
 
             SeaBoss2_Phase2_Mid boss2 = new SeaBoss2_Phase2_Mid();
-            boss2.pos = 37;
+            boss2.pos = 30;
             GameScene.add( boss2 );
 
             SeaBoss2_Phase2_Tail boss3 = new SeaBoss2_Phase2_Tail();
-            boss3.pos = 35;
+            boss3.pos = 28;
             GameScene.add( boss3 );
 
 

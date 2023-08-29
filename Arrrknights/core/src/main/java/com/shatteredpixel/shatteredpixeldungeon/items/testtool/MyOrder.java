@@ -83,7 +83,7 @@ public class MyOrder extends ChallengeItem {
                 ((Mob)ordered).aggro(ch);
                 ((Mob) ordered).beckon(ch.pos);
                 CellEmitter.center(cell).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-                CellEmitter.center(ordered.pos).start( Speck.factory( Speck.BUBBLE ), 0.3f, 3 );
+                CellEmitter.center(ordered.pos).start( Speck.factory( Speck.BUBBLE ), 0.3f, 5 );
                 if (ordered.buff(toAttack.class)!=null) Buff.detach(ordered,toAttack.class);
                 Buff.append(ordered,toAttack.class).set(ch.id());
             }

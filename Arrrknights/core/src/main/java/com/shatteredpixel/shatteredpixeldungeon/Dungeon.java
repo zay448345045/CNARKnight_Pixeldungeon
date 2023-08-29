@@ -77,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel3;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RhodesLevel4;
+import com.shatteredpixel.shatteredpixeldungeon.levels.SeaBossLevel1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SeaBossLevel2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SeaLevel_part1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SeaLevel_part2;
@@ -446,6 +447,7 @@ public class Dungeon {
 				break;
 			case 35:
 				if (extrastage_Gavial) level = new GavialBossLevel1();
+				//else if (extrastage_Sea) {level=new SeaBossLevel1();break;}//change from budding
 				else level = new SiestaBossLevel_part1();
 				break;
 			case 36:
@@ -1024,7 +1026,6 @@ public class Dungeon {
 		}
 
 		for (TalismanOfForesight.CharAwareness c : hero.buffs(TalismanOfForesight.CharAwareness.class)){
-			if (Dungeon.depth != c.depth) continue;
 			Char ch = (Char) Actor.findById(c.charID);
 			if (ch == null) continue;
 			BArray.or( level.visited, level.heroFOV, ch.pos - 1 - level.width(), 3, level.visited );

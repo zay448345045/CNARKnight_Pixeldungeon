@@ -130,6 +130,7 @@ public abstract class Mob extends Char {
 	public int maxLvl = Hero.MAX_LEVEL;
 	
 	protected Char enemy;
+	protected int enemyID = -1; //used for save/restore
 	protected boolean enemySeen;
 	protected boolean alerted = false;
 
@@ -139,6 +140,7 @@ public abstract class Mob extends Char {
 	private static final String SEEN	= "seen";
 	private static final String TARGET	= "target";
 	private static final String MAX_LVL	= "max_lvl";
+	private static final String ENEMY_ID	= "enemy_id";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -159,6 +161,9 @@ public abstract class Mob extends Char {
 		bundle.put( SEEN, enemySeen );
 		bundle.put( TARGET, target );
 		bundle.put( MAX_LVL, maxLvl );
+		if (enemy != null) {
+			bundle.put(ENEMY_ID, enemy.id() );
+		}
 	}
 	
 	@Override
@@ -183,9 +188,16 @@ public abstract class Mob extends Char {
 
 		target = bundle.getInt( TARGET );
 
+		if (bundle.contains(ENEMY_ID)) {
+			enemyID = bundle.getInt(ENEMY_ID);
+		}
 		if (bundle.contains(MAX_LVL)) maxLvl = bundle.getInt(MAX_LVL);
 	}
-	
+	//mobs need to remember their targets after every actor is added
+	public void restoreEnemy(){//change from budding,shattered
+		if (enemyID != -1 && enemy == null) enemy = (Char)Actor.findById(enemyID);
+	}
+
 	public CharSprite sprite() {
 		return Reflection.newInstance(spriteClass);
 	}

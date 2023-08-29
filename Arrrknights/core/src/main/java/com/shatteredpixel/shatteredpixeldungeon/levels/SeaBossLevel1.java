@@ -4,9 +4,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eunectes;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tomimi;
-import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.Group;
 import com.watabou.utils.Bundle;
@@ -15,7 +12,7 @@ import com.watabou.utils.Random;
 
 import java.util.Arrays;
 
-public class GavialBossLevel2 extends Level {
+public class SeaBossLevel1 extends Level {
     {
         color1 = 0x801500;
         color2 = 0xa68521;
@@ -23,12 +20,12 @@ public class GavialBossLevel2 extends Level {
 
     @Override
     public String tilesTex() {
-        return Assets.Environment.TILSE_SARGON;
+        return Assets.Environment.TILSE_IBERIA2;
     }
 
     @Override
     public String waterTex() {
-        return Assets.Environment.WATER_SIESTA2;
+        return Assets.Environment.WATER_IBERIA2;
     }
 
     @Override
@@ -50,6 +47,7 @@ public class GavialBossLevel2 extends Level {
 
         return true;
     }
+
     private static int W = Terrain.WALL; // 벽
     private static int D = Terrain.WALL_DECO; // 장식된 벽
     private static int e = Terrain.EMPTY; // 평범한 땅
@@ -102,14 +100,8 @@ public class GavialBossLevel2 extends Level {
 
         super.occupyCell( ch );
 
-        if (ch.pos != map[entrance] && map[exit] == Terrain.EXIT) {
-            Eunectes boss = new Eunectes();
-            boss.pos = 37;
-            GameScene.add( boss );
-            seal();
-
-            boss.notice();
-        }
+        // 보스 설정 아직 없음
+        seal();
     }
 
     @Override

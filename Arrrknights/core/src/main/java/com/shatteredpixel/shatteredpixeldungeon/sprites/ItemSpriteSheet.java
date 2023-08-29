@@ -980,6 +980,7 @@ public class ItemSpriteSheet {
 		public static final int RING_DOMINATE     = RINGS+13;
 		public static final int RING_SURPRISE     = RINGS+14;
 		public static final int RING_MISTRESS     = RINGS+15;
+		public static final int RING_COMMAND	  = xy(1,2);//change from budding;Illustrator : poster dude
 
 		static {
 			assignIconRect( RING_ACCURACY,      7, 7 );
@@ -998,6 +999,7 @@ public class ItemSpriteSheet {
 			assignIconRect( RING_DOMINATE,        7, 7 );
 			assignIconRect( RING_SURPRISE,        8, 8 );
 			assignIconRect( RING_MISTRESS,        8, 8 );
+			assignIconRect( RING_COMMAND, 	      7,  7);	//change from budding
 		}
 
 		                                                                                //16 free slots

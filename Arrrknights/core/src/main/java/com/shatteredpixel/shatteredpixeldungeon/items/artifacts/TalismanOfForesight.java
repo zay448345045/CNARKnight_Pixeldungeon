@@ -325,6 +325,7 @@ public class TalismanOfForesight extends Artifact {
 		public void charge(int boost){
 			if (!cursed) {
 				charge = Math.min((charge + boost), chargeCap);
+				updateQuickslot();//change from budding
 			}
 		}
 
@@ -350,7 +351,6 @@ public class TalismanOfForesight extends Artifact {
 	public static class CharAwareness extends FlavourBuff {
 
 		public int charID;
-		public int depth = Dungeon.depth;
 
 		private static final String CHAR_ID = "char_id";
 

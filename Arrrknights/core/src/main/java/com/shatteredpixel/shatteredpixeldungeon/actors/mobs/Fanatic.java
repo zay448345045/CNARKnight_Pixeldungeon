@@ -37,8 +37,9 @@ public class Fanatic extends Mob {
 
     public Fanatic() {
         super();
-
-        HP = HT = Dungeon.depth * 5 - 8;
+        int tmp=Dungeon.depth * 5 - 8;//change from budding
+        if (tmp<1) tmp=1;
+        HP = HT = tmp;
         defenseSkill = Dungeon.depth;
     }
 
